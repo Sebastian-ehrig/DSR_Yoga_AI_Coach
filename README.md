@@ -1,22 +1,22 @@
-Earthquake_predictor
+DSR_Yoga_AI_Coach
 ==============================
 
-Predicting the level of damage to buildings caused by the Gorkha earthquake depending on building location and building construction. The Data that is used for the model predictions are based on surveys conducted by Kathmandu Living Labs and the Central Bureau of Statistics.
+The Yoga_AI_Coach is a python based application able to detect and correct yoga-poses to lead a Yoga training sequence composed of different Yoga Asanas (Yoga poses). The application is able to detect in real-time all body movements captured via a camera using TensorflowLite Movenet for pose detection.
+
+A key feature of the application is that it is able to lead a yoga-session through voice commands:
+As soon as the practicing person gets into the correct pose that was instructed by the voice command, the App will provide suggestions to correct the Asana. Once the practicing person has settled into the correct Asana, the voice command continues with further instructions until the training sequence is completed.
+
+Further technical notes:
+-----------------------------------------
+
+The correct keypoint-positions of specific Asanas are pre-determined from still-images. A neural network was trained on key Asanas to be able to make predictions on multiple yoga poses. 
 
 This model was developed during the DSR (DataScienceRetreat) Batch30.
-
 
 Model workflow and data-analysis
 -----------------------------------------
 
-1. Loading the raw data (training-data, test-data, labels) 
-2. Concatenate training- and test-data; 
-   Clean data e.g. convert str to int where applicable
-3. Encode data: reads in the values and the labels, applies target encoding and 
-   returns a dataframe which consists only of numeric columns.
-4. Model training: defin ML model and grid of attributes. Fit the model to the train values of each attribute set.
-   then choose best model as fitted model according to f1(micro) score.
-5. Compute predictions and generate the reports.
+
 
 
 Project Organization and folder structure
