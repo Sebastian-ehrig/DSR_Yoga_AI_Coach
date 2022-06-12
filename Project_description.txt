@@ -1,0 +1,16 @@
+Project Summary:
+
+We want to create an app (Web App for our presentation) that is able to detect and correct yoga-poses to lead a Yoga training sequence composed of 5-6 different Yoga Asanas (Yoga poses). The webapp will be able to detect in real-time all body movements captured via a camera (webcam / phone camera for our project).
+
+A key feature of the app is that it will be able to lead a class through voice commands:
+As soon as the practicing person gets into the correct pose that was instructed by the voice command, the App will provide suggestions to correct the Asana. Once the practicing person has settled into the correct Asana, the voice command continues with further instructions until the training sequence is completed.
+
+In addition, before each training sequence, the app will determine/identify the ability of the person practicing how well he/she can complete a certain pose. Based on this data, the App will then automatically generate a sequence that is specifically designed according to the ability/flexibility of the yoga student.
+
+Further technical notes:
+
+The keypoints of specific Asanas are determined from still-images. We will then train a neural network on poses-keypoints to be able to make predictions on multiple yoga poses. 
+
+As mentioned above, the app will be running on a server, which will enable us to run the App on a mobile-phone via a browser. In the future, however, we aim to turn this into a mobile App that can be locally installed on a mobile-phone. 
+
+

@@ -1,0 +1,9 @@
+python==3.7
+pandas
+numpy
+os
+time
+sklearn
+category_encoders
+sklearn
+pandas_profiling
