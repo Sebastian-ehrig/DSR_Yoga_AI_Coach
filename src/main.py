@@ -187,13 +187,13 @@ while cap.isOpened():
     while not correct: 
          # at the beginning of each Aanas, apply classifier
         prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
-    if score >= 0.5: 
+    if prob_list_scores >= 0.6: 
         correct = True
     else:
         play.correction
          
     # check the probability in the prob_list_scores
-    # if score < 0.5 Play.correction
+    # if score < 0.6 Play.correction
     # if the score stays low then play.sleep
     # if score > play.Asanapose
 
