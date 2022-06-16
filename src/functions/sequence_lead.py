@@ -2,6 +2,28 @@ from pydub import AudioSegment
 from pydub.playback import play
 from numpy import np
 
+# import the time module
+import time
+  
+# define the countdown func.
+def countdown(t):
+    
+    while t:
+        mins, secs = divmod(t, 60)
+        timer = '{:02d}:{:02d}'.format(mins, secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        t -= 1
+      
+    print('Fire in the hole!!')
+  
+  
+# input time in seconds
+t = input("5: ")
+  
+# function call
+countdown(int(t))
+
 from functions.helper import getAngle
 
 def correct_angles(frame, keypoints_with_scores, confidence_threshold):
@@ -84,6 +106,12 @@ def correct_angles(frame, keypoints_with_scores, confidence_threshold):
 
     if right_leg and right_arm == 180:  
         play(song_a)
+    
+    # input time in seconds
+    t = input("2: ")
+  
+    # function call
+    countdown(int(t))
 
 # Transition 1
     song_b = AudioSegment.from_wav("./voice_commands/Tadhasana_to_warrior1.wav")

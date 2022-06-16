@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from pydub.playback import play
-from numpy import np
+import numpy as np
 
 from functions.helper import getAngle
 

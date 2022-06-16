@@ -183,11 +183,23 @@ while cap.isOpened():
     # draw_angles(frame, keypoints_with_scores, confidence_threshold)
 
     # run the classifier on the frame
-    prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
+    correct = False 
+    while not correct: 
+         # at the beginning of each Aanas, apply classifier
+        prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
+    if score >= 0.5: 
+        correct = True
+    else:
+        play.correction
+         
+    # check the probability in the prob_list_scores
+    # if score < 0.5 Play.correction
+    # if the score stays low then play.sleep
+    # if score > play.Asanapose
 
     correct_angles(frame, keypoints_with_scores, confidence_threshold)
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
-
+    
     # draw_FPS(frame, counter, fps, start_time)
 
     cv2.imshow('MoveNet singlepose', frame)
