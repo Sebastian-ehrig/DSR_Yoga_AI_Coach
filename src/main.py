@@ -185,7 +185,7 @@ while cap.isOpened():
     # run the classifier on the frame
     prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
 
-    draw_class_prediction_results(prob_list_labels, prob_list_scores, frame)
+    draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
 
     # draw_FPS(frame, counter, fps, start_time)
 
