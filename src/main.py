@@ -11,7 +11,7 @@ import time
 
 from helper.conf import *
 from functions.helper import *
-
+from functions.corrections import *
 # check what cameras are available
 cams = glob.glob("/dev/video?")
 # cams[2]
@@ -186,6 +186,7 @@ while cap.isOpened():
     prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
 
     draw_class_prediction_results(prob_list_labels, prob_list_scores, frame)
+    correct_angles(frame, keypoints_with_scores, confidence_threshold)
 
     # draw_FPS(frame, counter, fps, start_time)
 
