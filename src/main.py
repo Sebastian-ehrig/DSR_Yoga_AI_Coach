@@ -187,10 +187,10 @@ while cap.isOpened():
     while not correct: 
          # at the beginning of each Aanas, apply classifier
         prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
-    if score >= 0.5: 
-        correct = True
-    else:
-        play.correction
+        if prob_list_scores[0] >= 0.5: 
+            correct = True
+        else:
+            play.correction
          
     # check the probability in the prob_list_scores
     # if score < 0.5 Play.correction
