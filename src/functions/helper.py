@@ -7,8 +7,20 @@ import time
 
 # import math
 
-# define function for making keypoint predictions
+from numpy import dot
+from numpy.linalg import norm
 
+# Define function for computing cosine-similarity from images
+#https://stackoverflow.com/a/43043160/45963
+def cosine_similarity(a, b):
+  return dot(a, b)/(norm(a)*norm(b))
+
+# Define function for computing cosine-similarity from 2-column arrays
+# https://stackoverflow.com/questions/72039174/what-is-the-fastest-way-of-calculate-cosine-similarity-between-rows-of-two-same
+def cosine_sim(x, y):
+    return (x * y).sum(axis=1) / (np.linalg.norm(x, axis=1) * np.linalg.norm(y, axis=1))
+
+# define function for making keypoint predictions
 def make_predictions(img, interpreter, image_size):
         enhance_contrast = 0
         if enhance_contrast == 1:
@@ -192,6 +204,7 @@ def classifier(keypoints_with_scores):
     input_index = interpreter_PoseClass.get_input_details()[0]['index']
     output_index = interpreter_PoseClass.get_output_details()[0]['index']
 
+    # swap x and y coordinates
     dummy = keypoints_with_scores.copy()
     keypoints_with_scores[:,:,:,0] = dummy[:,:,:,1]
     keypoints_with_scores[:,:,:,1] = dummy[:,:,:,0]
@@ -217,8 +230,8 @@ def classifier(keypoints_with_scores):
     prob_list_scores = [
         output[idx] for idx in prob_descending
     ]
-
-    return prob_list_labels, prob_list_scores
+    # the first two outputs are the sorted labels and scores, the last two outputs are for unsorted scores
+    return prob_list_labels, prob_list_scores, output, labels
 
 
 def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame):
@@ -252,6 +265,45 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
             result_text = class_name + ' (' + str(probability) + ')'
             text_location = (left_margin, (i + 2) * row_size)
             cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+                        font_size, text_color, font_thickness)
+
+def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, frame):
+    # Visualization parameters
+    keypoint_detection_threshold = 0.1
+    classification_results_to_show = 1
+    row_size = 40  # pixels
+    left_margin = 34  # pixels
+    text_color = (0, 0, 255)  # red
+    font_size = 2
+    font_thickness = 2
+
+    # Check if all keypoints are detected
+    min_score = min(keypoints_with_scores[:,:,:,2].flatten())
+    if min_score < keypoint_detection_threshold:
+        error_text = 'Some keypoints are not detected.'
+        text_location = (left_margin, 2 * row_size)
+        cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+                    font_size, text_color, font_thickness)
+        error_text = 'Make sure the person is fully visible in the camera.'
+        text_location = (left_margin, 3 * row_size)
+        cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+                    font_size, text_color, font_thickness)
+
+    else:                
+
+        # Draw the classification results:
+        for i in range(classification_results_to_show):
+            
+            # probability = round(cos_sim_score_frame, 2)
+            # result_text = 'Cosine_Sim_score_Im' + ' (' + str(probability) + ')'
+            # text_location = (left_margin, (1 + 2) * row_size)
+            # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+            #             font_size, text_color, font_thickness)
+            
+            probability2 = round(cos_sim_score_kpt, 2)
+            result_text2 = 'Cosine_Sim_Score' + ' (' + str(probability2) + ')'
+            text_location2 = (left_margin, (2 + 2) * row_size)
+            cv2.putText(frame, result_text2, text_location2, cv2.FONT_HERSHEY_PLAIN,
                         font_size, text_color, font_thickness)
 
  
