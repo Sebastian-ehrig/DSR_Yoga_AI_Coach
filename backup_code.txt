@@ -1,0 +1,42 @@
+# # Pose corrections 
+
+# # Tadhasana
+
+# # ankle, hip, right_shoulder and Head in one line
+#     song = AudioSegment.from_wav("./voice_commands/Lengthen_the_spine.wav")
+
+#     if right_leg > 180 or right_leg < 180:  
+#         play(song)
+
+
+# # Warrior 1
+#     song = AudioSegment.from_wav("./voice_commands/Bend_the_knee.wav")
+#     song_1 = AudioSegment.from_wav("./voice_commands/Lift_the_arms_higher")
+    
+#     if right_leg  > 90:
+#         play(song)
+
+
+#     if right_arm_and_torso < 120:
+#         play(song_1)
+
+
+# # Warrior 2
+#     song_2 = AudioSegment.from_wav("./voice_commands/Lift_the_backarm_up.wav")
+#     song = AudioSegment.from_wav("./voice_commands/Bend_the_knee.wav")
+    
+#     if left_arm_and_torso and right_arm > 180 or left_arm_and_torso and right_arm < 180:
+#         play(song)
+    
+#     if right_leg  > 90:
+#         play(song_2)
+
+# # Trikonasana
+#     song_3 = AudioSegment.from_wav("./voice_commands/straighten_front_leg.wav")
+#     song_4 = AudioSegment.from_wav("./voice_commands/Keep_arms_in_one_line.wav")
+
+#     if right_leg < 180:
+#         play(song_3)
+
+#     if left_arm_and_torso and right_arm > 180 or left_arm_and_torso and right_arm < 180:
+#         play(song_4)

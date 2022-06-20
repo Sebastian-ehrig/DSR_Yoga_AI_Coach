@@ -244,8 +244,8 @@ while cap.isOpened():
     #     np.array(reference_pose_angles(poses_df[pose_idx])),
     #     np.array(pose_angles(keypoints_with_scores))
     #     )
-
-    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(poses_df[pose_idx], pose_idx))
+    keypoints_reference_pose = poses_df[pose_idx]
+    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(keypoints_reference_pose, pose_idx))
     pose_angles_current_frame = np.array(asana_pose_angles_from_frame(keypoints_with_scores, pose_idx))
 
     cos_sim_score_kpt = cosine_similarity(

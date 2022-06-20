@@ -248,7 +248,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
     # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        error_text = 'Some keypoints are not detected.'
+        error_text = 'Not enough keypoints detected.'
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
@@ -288,11 +288,11 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
     # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        error_text = 'Some keypoints are not detected.'
+        error_text = 'Not enough keypoints detected.'
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
-        error_text = 'Make sure the person is fully visible in the camera.'
+        error_text = 'Make sure the person is fully visible.'
         text_location = (left_margin, 3 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
@@ -314,6 +314,8 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             result_text3 = 'MSE' + ' (' + str(probability3) + ')'
 
             text_location2 = (left_margin, (1 + 2) * row_size)
+            
+            # https://stackoverflow.com/questions/56472024/how-to-change-the-opacity-of-boxes-cv2-rectangle
             # cosine similarity
             ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=30 + row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
             # mean square error

@@ -18,6 +18,7 @@ from helper.conf import *
 from functions.helper import *
 from functions.crop_algorithm import *
 from functions.pose_calc import *
+from functions.corrections import *
 
 # check what cameras are available
 cams = glob.glob("/dev/video?")
@@ -64,7 +65,7 @@ start_time = time.time()
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(0)
 
 # check camera resolution
 
@@ -100,8 +101,8 @@ cap = cv2.VideoCapture(2)
 # cap.set(3, 1920)
 # cap.set(4, 1080)
 # # 720p
-cap.set(3, 1280)
-cap.set(4, 720)
+# cap.set(3, 1280)
+# cap.set(4, 720)
 # cap.set(3,frame_Width) # Width of the frames in the video stream
 # cap.set(4,frame_Height) # Height of the frames in the video stream
 # cap.set(5, 30) # Frame rate
@@ -193,8 +194,8 @@ while cap.isOpened():
     #     np.array(reference_pose_angles(poses_df[pose_idx])),
     #     np.array(pose_angles(keypoints_with_scores))
     #     )
-
-    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(poses_df[pose_idx], pose_idx))
+    keypoints_reference_pose = poses_df[pose_idx]
+    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(keypoints_reference_pose, pose_idx))
     pose_angles_current_frame = np.array(asana_pose_angles_from_frame(keypoints_with_scores, pose_idx))
 
     cos_sim_score_kpt = cosine_similarity(
@@ -208,6 +209,10 @@ while cap.isOpened():
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
     draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
+
+
+    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
 
     # draw_FPS(frame, counter, fps, start_time) 
        
