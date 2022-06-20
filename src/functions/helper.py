@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 import os
 import time
+import pyshine as ps
 
 # import math
 
@@ -238,7 +239,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
     # Visualization parameters
     keypoint_detection_threshold = 0.1
     classification_results_to_show = 1
-    row_size = 40  # pixels
+    row_size = 30  # pixels
     left_margin = 34  # pixels
     text_color = (0, 0, 255)  # red
     font_size = 2
@@ -251,7 +252,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
-        error_text = 'Make sure the person is fully visible in the camera.'
+        error_text = 'Make sure the person is fully visible.'
         text_location = (left_margin, 3 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
@@ -264,14 +265,21 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
             probability = round(prob_list_scores[i], 2)
             result_text = class_name + ' (' + str(probability) + ')'
             text_location = (left_margin, (i + 2) * row_size)
-            cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
-                        font_size, text_color, font_thickness)
 
-def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, frame):
+            # x,y,w,h = 0,0,600,125
+            # # Create background rectangle with color
+            # cv2.rectangle(frame, (x,x), (x + w, y + h), (0,0,0), -1)
+
+            # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+            #             font_size, text_color, font_thickness)
+
+            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+
+def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame):
     # Visualization parameters
     keypoint_detection_threshold = 0.1
     classification_results_to_show = 1
-    row_size = 40  # pixels
+    row_size = 30  # pixels
     left_margin = 34  # pixels
     text_color = (0, 0, 255)  # red
     font_size = 2
@@ -302,9 +310,16 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, frame):
             
             probability2 = round(cos_sim_score_kpt, 2)
             result_text2 = 'Cosine_Sim_Score' + ' (' + str(probability2) + ')'
-            text_location2 = (left_margin, (2 + 2) * row_size)
-            cv2.putText(frame, result_text2, text_location2, cv2.FONT_HERSHEY_PLAIN,
-                        font_size, text_color, font_thickness)
+            probability3 = round(mse, 2)
+            result_text3 = 'MSE' + ' (' + str(probability3) + ')'
+
+            text_location2 = (left_margin, (1 + 2) * row_size)
+            # cosine similarity
+            ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=30 + row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            # mean square error
+            ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=40 + 2 * row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            # cv2.putText(frame, result_text2, text_location2, cv2.FONT_HERSHEY_PLAIN,
+            #             font_size, text_color, font_thickness)
 
  
 def getAngle(a, b, c):

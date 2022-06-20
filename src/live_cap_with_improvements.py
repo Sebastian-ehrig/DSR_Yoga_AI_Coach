@@ -9,10 +9,15 @@ import random
 import tqdm
 import time
 
+# for computing cosine similarity
+from img2vec_pytorch import Img2Vec
+from PIL import Image
+# from playsound import playsound
+
 from helper.conf import *
 from functions.helper import *
 from functions.crop_algorithm import *
-
+from functions.pose_calc import *
 
 # check what cameras are available
 cams = glob.glob("/dev/video?")
@@ -59,7 +64,7 @@ start_time = time.time()
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(2)
 
 # check camera resolution
 
@@ -106,6 +111,29 @@ cap.set(4, 720)
 # white_frame.fill(255)
 # # or img[:] = 255
 
+# Load reference pose for computing the cosine-similarity
+# -------------------------------------------------------
+poses_df = []
+ref_images = []
+for pose_idx in range(5):
+
+    ref_image_path = './reference_poses/Yoga_Seq_'+str(pose_idx) +'.jpg'
+    pose_df = pd.read_csv('./reference_poses/Yoga_Seq_'+str(pose_idx) +'.csv', sep='\t')
+    pose_df = pose_df.to_numpy()
+    pose_df = np.squeeze(pose_df)
+    # pose_df = pose_df.ravel()   
+    poses_df.append(pose_df)
+
+    #Initialize Img2Vec without GPU
+    img2vec = Img2Vec(cuda=False)
+
+    ref_image = cv2.imread(ref_image_path)
+    ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
+    ref_image_pil = Image.fromarray(ref_image)
+    ref_img  =  img2vec.get_vec(ref_image_pil)
+
+    ref_images.append(ref_img)
+
 num=0
 
 while cap.isOpened():
@@ -147,9 +175,39 @@ while cap.isOpened():
     # draw_angles(frame, keypoints_with_scores, confidence_threshold)
 
     # run the classifier on the frame
-    prob_list_labels, prob_list_scores = classifier(keypoints_with_scores)
+    prob_list_labels, prob_list_scores, output, labels = classifier(keypoints_with_scores)
 
+    # Compute cosine-similarity score using the keypoints:
+    # -----------------------------------------------------
+    # get index of closest matching pose
+    pose_idx = np.where(output == np.amax(output))[0][0]
+
+    # current_keypoint_coordinates = keypoints_with_scores[0][0][:,0:2]
+    # current_keypoint_coordinates = np.squeeze(current_keypoint_coordinates)
+    # cos_score = cosine_sim(poses_df[1], current_keypoint_coordinates)
+    # cos_sim_score_kpt = sum(cos_score)/len(cos_score)
+
+    # cosine similarity from angle differences
+    # ----------------------------------------
+    # cos_sim_score_kpt = cosine_similarity(
+    #     np.array(reference_pose_angles(poses_df[pose_idx])),
+    #     np.array(pose_angles(keypoints_with_scores))
+    #     )
+
+    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(poses_df[pose_idx], pose_idx))
+    pose_angles_current_frame = np.array(asana_pose_angles_from_frame(keypoints_with_scores, pose_idx))
+
+    cos_sim_score_kpt = cosine_similarity(
+                            pose_angles_reference_img,
+                            pose_angles_current_frame
+                    )
+
+    mse = (np.square(pose_angles_reference_img - pose_angles_current_frame)).mean()
+
+    # draw class prediction results
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
+    # draw cosine-similarity scores
+    draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
     # draw_FPS(frame, counter, fps, start_time) 
        

@@ -240,10 +240,21 @@ while cap.isOpened():
 
     # cosine similarity from angle differences
     # ----------------------------------------
+    # cos_sim_score_kpt = cosine_similarity(
+    #     np.array(reference_pose_angles(poses_df[pose_idx])),
+    #     np.array(pose_angles(keypoints_with_scores))
+    #     )
+
+    pose_angles_reference_img = np.array(asana_pose_angles_from_reference(poses_df[pose_idx], pose_idx))
+    pose_angles_current_frame = np.array(asana_pose_angles_from_frame(keypoints_with_scores, pose_idx))
+
     cos_sim_score_kpt = cosine_similarity(
-        np.array(reference_pose_angles(poses_df[pose_idx])),
-        np.array(pose_angles(keypoints_with_scores))
-        )
+                            pose_angles_reference_img,
+                            pose_angles_current_frame
+                    )
+
+    mse = (np.square(pose_angles_reference_img - pose_angles_current_frame)).mean()
+
 
     # print(cos_sim_score_kpt)
     # Compute cosine-similarity score between frame and reference frame
@@ -273,7 +284,7 @@ while cap.isOpened():
     # draw class prediction results
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
-    draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, frame)
+    draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
     # draw_FPS(frame, counter, fps, start_time)
 
@@ -300,6 +311,6 @@ cv2.destroyAllWindows() # close all windows
 # print(f'Image shape is: {webcam_frame.shape}')
 
 # # save the last image frame
-cv2.imwrite('Frame'+str(random.randint(1, 1000_000))+'.jpg', frame)
-cv2.imwrite('Frame'+str(num)+'.jpg', frame)
+# cv2.imwrite('Frame'+str(random.randint(1, 1000_000))+'.jpg', frame)
+# cv2.imwrite('Frame'+str(num)+'.jpg', frame)
 
