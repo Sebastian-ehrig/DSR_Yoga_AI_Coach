@@ -58,7 +58,7 @@ warnings.filterwarnings('ignore')
 
 # Variables to calculate FPS
 counter, fps = 0, 0
-startTime = time.time()
+start_time = time.time()
 
 #---------------------------------------------
 # initialize video frame capture using OpenCV2
@@ -179,15 +179,16 @@ while cap.isOpened():
     # draw cosine-similarity scores
     draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
-    seq_step = yoga_sequence_lead(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse, counter)
+    seq_step = yoga_sequence_lead(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step)
 
     # # make pose-correction suggestions
     # # --------------------------------
+
     if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
         if mse <= 150:
             correct = True
         if mse > 150:              
-            correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)             
+            correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
     # https://stackoverflow.com/questions/70223324/play-a-sound-asynchronously-in-a-while-loop
 

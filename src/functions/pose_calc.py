@@ -75,7 +75,46 @@ def reference_pose_angles(keypoints_with_scores):
         keypoints_with_scores[16]
     )
 
-    return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_hip, rigth_hip, left_leg, right_leg
+    # EXTRA angle calculations:
+#-------------------------
+
+    #left leg and torso: 13, 11, 5 (knee, hip and shoulder)
+    left_leg_torso = getAngle(
+        keypoints_with_scores[13],
+        keypoints_with_scores[11],
+        keypoints_with_scores[5]
+    )
+
+    #right leg and torso: 14, 12, 6 (knee, hip and shoulder)
+    right_leg_torso = getAngle(
+        keypoints_with_scores[14],
+        keypoints_with_scores[12],
+        keypoints_with_scores[6]
+    )
+
+    #left arm and torso: 7, 5, 11 (elbow, shoulder and hip)
+    left_arm_torso = getAngle(
+        keypoints_with_scores[7],
+        keypoints_with_scores[5],
+        keypoints_with_scores[11]
+    )
+
+    #right arm and torso: 8, 6, 12 (elbow, shoulder and hip)
+    right_arm_torso = getAngle(
+        keypoints_with_scores[8],
+        keypoints_with_scores[6],
+        keypoints_with_scores[12]
+    )
+    
+    #right arm and left arm: 10, 6, 9 (wrist, shoulder and wrist)
+    right_arm_left_arm = getAngle(
+        keypoints_with_scores[10],
+        keypoints_with_scores[6],
+        keypoints_with_scores[9]
+    )
+
+    return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_hip, rigth_hip, left_leg, right_leg, \
+              left_leg_torso, right_leg_torso, left_arm_torso, right_arm_torso, right_arm_left_arm
 
 def pose_angles(keypoints_with_scores):
 
@@ -172,7 +211,8 @@ def pose_angles(keypoints_with_scores):
         keypoints_with_scores[0][0][9]
     )
 
-    return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_hip, rigth_hip, left_leg, right_leg
+    return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_hip, rigth_hip, left_leg, right_leg, \
+        left_leg_torso, right_leg_torso, left_arm_torso, right_arm_torso, right_arm_left_arm
 
 # --------------------------------------------------------------------------------------------------------
 # The follow angle calculations are specific for each Asana and used in conjunction with cosine similarity

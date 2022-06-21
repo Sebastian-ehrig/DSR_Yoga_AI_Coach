@@ -64,7 +64,7 @@ start_time = time.time()
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(0)
 
 # check camera resolution
 
@@ -269,11 +269,6 @@ while cap.isOpened():
     # ----------------------------------------------------------------------
 
 
-    # if output[0] >= 0.9: 
-    #         correct = True
-    # else:
-    #         play.correction      
-
     # check the probability in the prob_list_scores
     # if score < 0.6 Play.correction
     # if the score stays low then play.sleep
@@ -285,6 +280,12 @@ while cap.isOpened():
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
     draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
+
+    if counter % 50 == 0: # suggest corrections every 50 frames
+        if mse <= 150:
+            correct = True
+        if mse > 150:              
+            correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
     # draw_FPS(frame, counter, fps, start_time)
 
