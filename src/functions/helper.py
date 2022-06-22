@@ -5,11 +5,22 @@ import tensorflow as tf
 import os
 import time
 import pyshine as ps
+import threading
 
 # import math
 
 from numpy import dot
 from numpy.linalg import norm
+from functions.sequence_lead import yoga_sequence_lead
+
+# https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
+# define class for multi-threading
+class ThreadWithResult(threading.Thread):
+    def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None):
+        def function():
+            self.result = target(*args, **kwargs)
+        super().__init__(group=group, target=function, name=name, daemon=daemon)
+
 
 # Define function for computing cosine-similarity from images
 #https://stackoverflow.com/a/43043160/45963
@@ -273,7 +284,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
             # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
             #             font_size, text_color, font_thickness)
 
-            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
 
 def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame):
     # Visualization parameters
@@ -310,19 +321,29 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             
             probability2 = round(cos_sim_score_kpt, 2)
             result_text2 = 'Cosine_Sim_Score' + ' (' + str(probability2) + ')'
-            probability3 = round(mse, 2)
+            probability3 = round(mse, 1)
             result_text3 = 'MSE' + ' (' + str(probability3) + ')'
 
             text_location2 = (left_margin, (1 + 2) * row_size)
+
+            MSE_shades = (15, 255, 80) # green
+            MSE_shades2 = (255, 235, 0) # yellow
+            MSE_shades3 = (240, 128, 0) # orange
+            MSE_shades4 = (255, 0, 0) # red
             
             # https://stackoverflow.com/questions/56472024/how-to-change-the-opacity-of-boxes-cv2-rectangle
             # cosine similarity
-            ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=30 + row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=80 + row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
             # mean square error
-            ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=40 + 2 * row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
-            # cv2.putText(frame, result_text2, text_location2, cv2.FONT_HERSHEY_PLAIN,
-            #             font_size, text_color, font_thickness)
-
+            # ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            if mse < 75:
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=MSE_shades)
+            elif mse < 150:
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=MSE_shades2)
+            elif mse < 225:
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=MSE_shades3)
+            elif mse > 225:
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=MSE_shades4)
  
 def getAngle(a, b, c):
     # ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))

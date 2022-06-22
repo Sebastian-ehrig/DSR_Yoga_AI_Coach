@@ -51,7 +51,6 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 
     # Voice Commands for pose corrections:
     # ------------------------------------
-
         Lift_the_backarm_up = "./src/functions/voice_commands/Lift_the_backarm_up.ogg"
         Bend_the_knee = "./src/functions/voice_commands/Bend_the_knee.ogg"
         Lengthen_the_spine = './src/functions/voice_commands/Lengthen_the_spine.ogg'
@@ -111,7 +110,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 
             elif (pose_angle_differences_abs[4] > angl_thresh or 
                 pose_angle_differences_abs[2] > angl_thresh or 
-                pose_angle_differences_abs[3] > 20
+                pose_angle_differences_abs[3] > angl_thresh
                 ):
                 playSound(Keep_arms_in_one_line)
 
@@ -156,4 +155,3 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 
             elif pose_angle_differences_abs[5]  > angl_thresh:
                 playSound(Bend_the_knee)
-

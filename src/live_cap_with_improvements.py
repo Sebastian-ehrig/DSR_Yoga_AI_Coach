@@ -24,7 +24,7 @@ from functions.sequence_lead import *
 
 # check what cameras are available
 cams = glob.glob("/dev/video?")
-# cams[2]
+print("Available cameras:", cams)
 
 #------------
 # Load Model:
@@ -34,9 +34,11 @@ single_pose_thunder3=1 # Movenet singlepose thunder3 to be used,
                        # else Movenet singlepose lightning3
 capture_frames=0 # if frames are to be captured
 
-confidence_score = 0.2 # threshold for making the decision
+confidence_score = 0.2 # threshold for drawing the keypoints
 
-check_cam_resolution=0 # if camera resolution is to be checked
+external_cam = 0 # 1 if external camera is to be used
+
+play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
@@ -59,6 +61,8 @@ warnings.filterwarnings('ignore')
 # Variables to calculate FPS
 counter, fps = 0, 0
 startTime = time.time()
+CommandExecuted = False
+
 
 #---------------------------------------------
 # initialize video frame capture using OpenCV2
@@ -67,12 +71,19 @@ startTime = time.time()
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
-cap = cv2.VideoCapture(2)
+if external_cam==1: # external cam
+    cap = cv2.VideoCapture(2)
+else:
+    cap = cv2.VideoCapture(0) # webcam
 
 # set camera resolution etc.
 # # 1080p
-frame_Width = 1920
-frame_Height= 1080
+# frame_Width = 1920
+# frame_Height= 1080
+# # 720p
+frame_Width = 1280
+frame_Height= 720
+
 cap.set(3,frame_Width) # Width of the frames in the video stream
 cap.set(4,frame_Height) # Height of the frames in the video stream
 
@@ -133,7 +144,7 @@ while cap.isOpened():
     # Render image including the detected keypoints:
     # ----------------------------------------------
     
-    confidence_threshold = confidence_score # threshold for making the decision
+    confidence_threshold = confidence_score # threshold for drawing the keypoints
 
     # draw the line connections
     draw_connections(frame, keypoints_with_scores, EDGES, confidence_threshold)
@@ -179,17 +190,78 @@ while cap.isOpened():
     # draw cosine-similarity scores
     draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
-    seq_step = yoga_sequence_lead(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse, counter)
+    # ~https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
+    # thread1 = ThreadWithResult(target=yoga_sequence_lead, args=(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse))
+    # thread1.start()
+    # thread1.join()
+    # seq_step = thread1.result
+    # if seq_step == 1:
+    #     thread1.sleep(10)
+    if play_yoga_sequence == 1:
+        seq_step, time_in = yoga_sequence_lead(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse)
 
+    # # --------------------------------
     # # make pose-correction suggestions
     # # --------------------------------
-    if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
-        if mse <= 150:
-            correct = True
-        if mse > 150:              
-            correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)             
 
-    # https://stackoverflow.com/questions/70223324/play-a-sound-asynchronously-in-a-while-loop
+    if play_yoga_sequence == 1: # corrections for yoga sequence
+
+        if seq_step == 0 or seq_step >=5:
+            if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                if mse <= 200:
+                    correct = True
+                if mse > 201:              
+                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+
+        if seq_step == 1:
+            if time.time() - time_in > 90:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 2:
+            if time.time() - time_in > 50:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 3:
+            if time.time() - time_in > 45:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 4:
+            if time.time() - time_in > 95:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+    else: # corrections for all poses
+        if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                if mse <= 100:
+                    correct = True
+                    CorrectPose = "./src/functions/sequence_commands/Correct.ogg"
+                    playSound(CorrectPose)
+                if mse > 201:              
+                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+        
+
+    # if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+    #     if mse <= 200:
+    #         correct = True
+    #     if mse > 201:              
+    #         correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)                
+
 
     # draw_FPS(frame, counter, fps, start_time) 
        
@@ -203,6 +275,10 @@ while cap.isOpened():
     if cv2.waitKey(10) & 0xFF==ord('q'):
         break
     
+    # define brake-out if sequence is finished
+    if seq_step == 5:
+        if time.time() - time_in > 30:
+            break
         
 cap.release() # release the camera
 cv2.destroyAllWindows() # close all windows
