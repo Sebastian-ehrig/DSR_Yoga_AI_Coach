@@ -247,7 +247,7 @@ while cap.isOpened():
 
     else: # corrections for all poses
         if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
-                if mse <= 100:
+                if mse <= 150:
                     correct = True
                     CorrectPose = "./src/functions/sequence_commands/Correct.ogg"
                     playSound(CorrectPose)
