@@ -11,7 +11,6 @@ import threading
 
 from numpy import dot
 from numpy.linalg import norm
-from functions.sequence_lead import yoga_sequence_lead
 
 # https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 # define class for multi-threading

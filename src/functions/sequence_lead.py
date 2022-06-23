@@ -2,8 +2,6 @@ from ast import arg
 import pygame
 import numpy as np
 import time
-import asyncio
-import threading
 
 from functions.helper import *
 from functions.pose_calc import *

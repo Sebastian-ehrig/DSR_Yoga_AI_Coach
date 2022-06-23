@@ -1,4 +1,3 @@
-from async_timeout import timeout
 import numpy as np
 import pygame
 
@@ -25,7 +24,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        print("Not enough keypoints detected")
+        pass #print("Not enough keypoints detected")
     else:                
 
         # get angles of closest matching pose
