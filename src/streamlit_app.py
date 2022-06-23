@@ -120,7 +120,7 @@ for pose_idx in range(5):
 
 seq_step = 0 # sequence step
 
-webrtc_streamer(key="example")
+# webrtc_streamer(key="example")
 
 class VideoTransformer(VideoTransformerBase):
     def transform(self, frame):
