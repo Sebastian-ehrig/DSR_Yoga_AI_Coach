@@ -10,8 +10,8 @@ import tqdm
 import time
 
 # for computing cosine similarity frim images
-from img2vec_pytorch import Img2Vec
-from PIL import Image
+# from img2vec_pytorch import Img2Vec
+# from PIL import Image
 # from playsound import playsound
 
 from helper.conf import *
@@ -105,14 +105,14 @@ for pose_idx in range(5):
     poses_df.append(pose_df)
 
     #Initialize Img2Vec without GPU
-    img2vec = Img2Vec(cuda=False)
+    # img2vec = Img2Vec(cuda=False)
 
-    ref_image = cv2.imread(ref_image_path)
-    ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
-    ref_image_pil = Image.fromarray(ref_image)
-    ref_img  =  img2vec.get_vec(ref_image_pil)
+    # ref_image = cv2.imread(ref_image_path)
+    # ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
+    # ref_image_pil = Image.fromarray(ref_image)
+    # ref_img  =  img2vec.get_vec(ref_image_pil)
 
-    ref_images.append(ref_img)
+    # ref_images.append(ref_img)
 
 seq_step = 0 # sequence step
 
