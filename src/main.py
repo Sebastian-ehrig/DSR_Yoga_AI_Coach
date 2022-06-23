@@ -8,7 +8,7 @@ import glob
 import random
 import tqdm
 import time
-from streamlit_webrtc import webrtc_streamer
+# from streamlit_webrtc import webrtc_streamer
 
 # for computing cosine similarity frim images
 # from img2vec_pytorch import Img2Vec
@@ -69,7 +69,7 @@ CommandExecuted = False
 #---------------------------------------------
 
 # Streamlit component which deals with video and audio real-time I/O through web browsers
-webrtc_streamer(key="example")
+#  webrtc_streamer(key="example")
 
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
