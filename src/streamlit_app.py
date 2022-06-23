@@ -125,7 +125,7 @@ seq_step = 0 # sequence step
 
 def video_frame_callback(input_image):
 
-    frame = input_image.to_ndarray(format="bgr24")
+    frame = input_image.to_image(format="bgr24")
 
     img = cv2.flip(frame, 1) 
     frame = cv2.flip(frame, 1)
