@@ -1,9 +1,8 @@
 python==3.9.12
-pandas
-numpy
-os
-time
-sklearn
-category_encoders
-sklearn
-pandas_profiling
+pandas==1.4.2
+numpy==1.22.3
+opencv-python==4.5.5
+tensorflow==2.8.0
+matplotlib==3.5.2 
+img2vec-pytorc==1.0.1
+Pillow==9.1.0
