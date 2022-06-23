@@ -3,7 +3,5 @@ numpy==1.22.3
 opencv-python==4.5.5.62
 tensorflow==2.9.1
 matplotlib==3.5.2 
-img2vec-pytorc==1.0.1
-Pillow==9.1.1
 pygame==2.1.2
 pyshine==0.0.9
