@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import cv2
+import cv2 #cv2
 import warnings
 import glob
 import random
@@ -276,7 +276,8 @@ while cap.isOpened():
     
         
 cap.release() # release the camera
-cv2.destroyAllWindows() # close all windows
+
+# cv2.destroyAllWindows() # close all windows
 
 
 ## show the last captured frame
