@@ -115,18 +115,7 @@ def draw_keypoints(frame, keypoints_with_scores, confidence_threshold):
             cv2.circle(frame, (int(kx), int(ky)), 6, (0,255,0),-1)
             cv2.circle(frame, (int(kx), int(ky)), 6, (224,255,255), 2)
             
-            # conf_sc = float("{:.1}".format(kp_conf))
-            #     # print confidence scores on frame
-            #     # Using cv2.putText()
-            # cv2.putText(
-            #     frame,
-            #     text = str(conf_sc),
-            #     org = (int(kx)+15, int(ky)+15),
-            #     fontFace = cv2.FONT_HERSHEY_DUPLEX,
-            #     fontScale = 0.9,
-            #     color = (224,255,255),
-            #     thickness = 1
-            #     )
+    return frame
 
 def draw_keypoints_initial(frame, keypoints_with_scores, confidence_threshold):
     y, x, c = frame.shape # (y,x) = coordinates; c = channels
@@ -173,6 +162,8 @@ def draw_connections(frame, keypoints_with_scores, edges, confidence_threshold):
         
         if (c1 > confidence_threshold) & (c2 > confidence_threshold):
             cv2.line(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 4)
+
+    return frame
 
 # def function to draw FPS on frame
 def draw_FPS(frame, counter, fps, start_time):
@@ -285,6 +276,8 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
 
             ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
 
+    return frame
+
 def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame):
     # Visualization parameters
     keypoint_detection_threshold = 0.1
@@ -344,6 +337,8 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             elif mse > 225:
                 ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=MSE_shades4)
  
+    return frame
+
 def getAngle(a, b, c):
     # ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))
     # return ang + 360 if ang < 0 else ang

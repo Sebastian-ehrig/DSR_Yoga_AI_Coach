@@ -123,9 +123,9 @@ seq_step = 0 # sequence step
 
 # webrtc_streamer(key="example")
 
-def video_frame_callback(frame):
+def video_frame_callback(img):
 
-    frame = frame.to_ndarray(format="bgr24")
+    frame = img.to_ndarray(format="bgr24")
 
     frame = cv2.flip(frame, 1)
     
@@ -152,11 +152,11 @@ def video_frame_callback(frame):
     confidence_threshold = confidence_score # threshold for drawing the keypoints
 
     # draw the line connections
-    draw_connections(frame, keypoints_with_scores, EDGES, confidence_threshold)
+    frame = draw_connections(frame, keypoints_with_scores, EDGES, confidence_threshold)
     
     # draw the keypoints
     # draw_keypoints_initial(frame, initial_keypoints_with_scores, confidence_threshold)
-    draw_keypoints(frame, keypoints_with_scores, confidence_threshold)
+    frame = draw_keypoints(frame, keypoints_with_scores, confidence_threshold)
 
     # draw_angles(frame, keypoints_with_scores, confidence_threshold)
 
@@ -191,9 +191,9 @@ def video_frame_callback(frame):
     mse = (np.square(pose_angles_reference_img - pose_angles_current_frame)).mean()
 
     # draw class prediction results
-    draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
+    frame = draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
-    draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
+    frame = draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
     # ~https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
     # thread1 = ThreadWithResult(target=yoga_sequence_lead, args=(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse))
@@ -281,6 +281,7 @@ def video_frame_callback(frame):
     #     break
 
     return av.VideoFrame.from_ndarray(frame, format="bgr24")
+
 
 webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
 # cap.release() # release the camera
