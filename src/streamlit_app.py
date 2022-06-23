@@ -281,7 +281,9 @@ def video_frame_callback(input_image):
     # if cv2.waitKey(10) & 0xFF==ord('q'):
     #     break
 
-    return av.VideoFrame.from_ndarray(frame, format="bgr24")
+    new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
+
+    return new_frame
 
 
 webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
