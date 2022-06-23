@@ -286,7 +286,7 @@ def video_frame_callback(input_image):
     return new_frame
 
 
-webrtc_streamer(key="example", video_frame_callback=video_frame_callback, rtc_configuration=RTCConfiguration)   
+webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
 
 
 
