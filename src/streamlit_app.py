@@ -285,8 +285,11 @@ def video_frame_callback(input_image):
 
     return new_frame
 
+RTC_CONFIGURATION = RTCConfiguration(
+    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+)
 
-webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
+webrtc_streamer(key="example", video_frame_callback=video_frame_callback, rtc_configuration=RTC_CONFIGURATION)   
 
 
 
