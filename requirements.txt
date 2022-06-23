@@ -5,3 +5,4 @@ tensorflow==2.8.1
 matplotlib==3.5.2 
 pygame==2.1.2
 pyshine==0.0.9
+streamlit-webrtc==0.40.0
