@@ -8,7 +8,7 @@ import glob
 import random
 import tqdm
 import time
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import webrtc_streamer, RTCConfiguration
 import av
 
 # for computing cosine similarity frim images
@@ -286,7 +286,7 @@ def video_frame_callback(input_image):
     return new_frame
 
 
-webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
+webrtc_streamer(key="example", video_frame_callback=video_frame_callback, rtc_configuration=RTCConfiguration)   
 
 
 
