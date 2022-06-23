@@ -123,17 +123,18 @@ seq_step = 0 # sequence step
 
 # webrtc_streamer(key="example")
 
-def video_frame_callback(img):
+def video_frame_callback(input_image):
 
-    frame = img.to_ndarray(format="bgr24")
+    frame = input_image.to_ndarray(format="bgr24")
 
+    img = cv2.flip(frame, 1) 
     frame = cv2.flip(frame, 1)
     
     counter += 1
 
     # input frame has to be a float32 tensor of shape: 256x256x3.
     # RGB with values in [0, 255].
-    img = frame.copy()   
+    
     image_height, image_width, _ = frame.shape
 
     # # make keypoint predictions on image frame
@@ -284,6 +285,9 @@ def video_frame_callback(img):
 
 
 webrtc_streamer(key="example", video_frame_callback=video_frame_callback)   
+
+
+
 # cap.release() # release the camera
 
 # cv2.destroyAllWindows() # close all windows
