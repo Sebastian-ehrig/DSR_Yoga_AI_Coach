@@ -8,7 +8,12 @@ import glob
 import random
 import tqdm
 import time
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfiguration, VideoProcessorBase, WebRtcMode
+from streamlit_webrtc import (
+    RTCConfiguration,
+    WebRtcMode,
+    WebRtcStreamerContext,
+    webrtc_streamer,
+)
 import av
 
 # for computing cosine similarity frim images
@@ -125,11 +130,10 @@ seq_step = 0 # sequence step
 
 def video_frame_callback(input_image):
 
-    frame = input_image.to_ndarray(format="bgr24")
-    #image gray
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame = input_image.to_image(format="bgr24")
 
     img = cv2.flip(frame, 1) 
+
     frame = cv2.flip(frame, 1)
     
     counter += 1
@@ -287,14 +291,18 @@ def video_frame_callback(input_image):
 
     return new_frame
 
-
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
 )
 
-# webrtc_streamer(key="example", video_frame_callback=video_frame_callback, rtc_configuration=RTC_CONFIGURATION)   
-webrtc_streamer(key="example", mode=WebRtcMode.SENDRECV, rtc_configuration=RTC_CONFIGURATION,
-                        video_processor_factory=video_frame_callback)
+webrtc_streamer(
+        key="opencv-filter",
+        mode=WebRtcMode.SENDRECV,
+        rtc_configuration=RTC_CONFIGURATION,
+        video_frame_callback=video_frame_callback,
+        media_stream_constraints={"video": True, "audio": False},
+        async_processing=True,
+    )
 
 
 # cap.release() # release the camera
