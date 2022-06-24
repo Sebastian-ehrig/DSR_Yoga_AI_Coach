@@ -258,14 +258,6 @@ while cap.isOpened():
                 if mse > 201:              
                     correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
-
-    # if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
-    #     if mse <= 200:
-    #         correct = True
-    #     if mse > 201:              
-    #         correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)                
-
-
     # draw_FPS(frame, counter, fps, start_time) 
        
     cv2.imshow('MoveNet frame', frame)
@@ -280,8 +272,7 @@ while cap.isOpened():
     
         
 cap.release() # release the camera
-
-# cv2.destroyAllWindows() # close all windows
+cv2.destroyAllWindows() # close all windows
 
 
 ## show the last captured frame
@@ -292,5 +283,5 @@ cap.release() # release the camera
 
 # save the last image frame
 # cv2.imwrite('./frames/Frame'+str(random.randint(1, 1000_000))+'.jpg', frame)
-# cv2.imwrite('./framesFrame'+str(0)+'.jpg', frame)
+cv2.imwrite('./frames/Frame'+str(0)+'.jpg', frame)
 

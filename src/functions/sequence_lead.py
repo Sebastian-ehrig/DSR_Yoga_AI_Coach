@@ -161,7 +161,7 @@ def yoga_sequence_lead(keypoints_reference_pose, keypoints_with_scores, pose_idx
             # pose_angle_differences_abs[2] > angl_thresh_tight and
             # pose_angle_differences_abs[1] > angl_thresh_tight and 
             # pose_angle_differences_abs[3] > angl_thresh_tight and
-            mse < 200
+            mse < 300
             ):
             time_in = time.time()
             # startTime = time.time()

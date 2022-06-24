@@ -91,7 +91,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
                 ):
                 playSound(Lengthen_the_spine)
 
-    # (2) Utthita_Parsvakonasana / Trikonasana:
+    # (2) Trikonasana:
     # ----------------------------------------
 
         elif pose_idx == 2:
@@ -145,12 +145,12 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 
             # Array_Order: left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
 
-            if (pose_angle_differences_abs[0] > angl_thresh and 
-                pose_angle_differences_abs[2] > angl_thresh or 
-                pose_angle_differences_abs[1] > angl_thresh and 
-                pose_angle_differences_abs[3] > angl_thresh
+            if (pose_angle_differences_abs[0] > 30 and 
+                pose_angle_differences_abs[2] > 30 or 
+                pose_angle_differences_abs[1] > 30 and 
+                pose_angle_differences_abs[3] > 30
                 ):
                 playSound(Lift_the_backarm_up)
 
-            elif pose_angle_differences_abs[5]  > angl_thresh:
+            elif pose_angle_differences_abs[5]  > 30:
                 playSound(Bend_the_knee)
