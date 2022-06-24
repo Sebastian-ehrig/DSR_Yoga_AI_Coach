@@ -69,6 +69,7 @@ target/
 # program folder
 Documents/
 backup/
+frames/
 
 # VS Code
 .vscode/

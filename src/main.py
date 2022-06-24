@@ -38,7 +38,7 @@ confidence_score = 0.2 # threshold for drawing the keypoints
 
 external_cam = 0 # 1 if external camera is to be used
 
-play_yoga_sequence = 0 # 1 if yoga sequence is to be played
+play_yoga_sequence = 1 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
