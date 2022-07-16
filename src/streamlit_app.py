@@ -129,7 +129,7 @@ def video_frame_callback(input_image):
 
     frame = cv2.flip(input_image, 1)
     
-    counter += 1
+    # counter += 1
 
     # input frame has to be a float32 tensor of shape: 256x256x3.
     # RGB with values in [0, 255].
