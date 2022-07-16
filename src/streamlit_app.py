@@ -123,13 +123,13 @@ seq_step = 0 # sequence step
 
 def video_frame_callback(input_image):
 
+    global counter
     # frame = input_image.to_ndarray(format="bgr24")
 
     # img = cv2.flip(input_image, 1) 
 
     frame = cv2.flip(input_image, 1)
     
-    # counter += 1
 
     # input frame has to be a float32 tensor of shape: 256x256x3.
     # RGB with values in [0, 255].
@@ -262,6 +262,8 @@ def video_frame_callback(input_image):
         
 
     # new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
+
+    counter += 1
 
     return frame
 
