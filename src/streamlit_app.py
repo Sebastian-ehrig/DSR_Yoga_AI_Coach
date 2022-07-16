@@ -123,7 +123,7 @@ seq_step = 0 # sequence step
 
 def video_frame_callback(input_image):
 
-    global counter
+    # global counter
     # frame = input_image.to_ndarray(format="bgr24")
 
     # img = cv2.flip(input_image, 1) 
@@ -263,7 +263,7 @@ def video_frame_callback(input_image):
 
     # new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
 
-    counter += 1
+    # counter += 1
 
     return frame
 
@@ -285,7 +285,9 @@ webrtc_ctx = webrtc_streamer(
     key="WYH",
     mode=WebRtcMode.SENDRECV,
     rtc_configuration=RTC_CONFIGURATION,
-    media_stream_constraints={"video": True, "audio": False},
+    media_stream_constraints={"video": {
+            "width": {"min": 800, "ideal": 1200, "max": 1920 },
+        }, "audio": False}, 
     video_processor_factory=VideoProcessor,
     async_processing=True,
 )
