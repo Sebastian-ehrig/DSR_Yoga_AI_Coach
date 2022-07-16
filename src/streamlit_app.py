@@ -20,7 +20,7 @@ from helper.conf import *
 from functions.helper import *
 from functions.crop_algorithm import *
 from functions.pose_calc import *
-from functions.corrections import *
+from functions.corrections_streamlit import *
 from functions.sequence_lead import *
 
 # check what cameras are available
