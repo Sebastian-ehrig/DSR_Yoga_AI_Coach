@@ -125,7 +125,7 @@ def video_frame_callback(input_image):
 
     # frame = input_image.to_ndarray(format="bgr24")
 
-    img = cv2.flip(input_image, 1) 
+    # img = cv2.flip(input_image, 1) 
 
     frame = cv2.flip(input_image, 1)
     
@@ -144,7 +144,7 @@ def video_frame_callback(input_image):
     
     # improve keypoint-predictions by cropping the image around the intitaly detected keypoints
     crop_region = init_crop_region(image_height, image_width)
-    keypoints_with_scores = improve_predictions(make_predictions_compact, img, crop_region, image_size, interpreter)
+    keypoints_with_scores = improve_predictions(make_predictions_compact, frame, crop_region, image_size, interpreter)
 
     # Render image including the detected keypoints:
     # ----------------------------------------------
