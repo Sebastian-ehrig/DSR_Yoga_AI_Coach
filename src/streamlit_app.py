@@ -123,11 +123,11 @@ seq_step = 0 # sequence step
 
 def video_frame_callback(input_image):
 
-    frame = input_image.to_ndarray(format="bgr24")
+    # frame = input_image.to_ndarray(format="bgr24")
 
-    img = cv2.flip(frame, 1) 
+    img = cv2.flip(input_image, 1) 
 
-    frame = cv2.flip(frame, 1)
+    frame = cv2.flip(input_image, 1)
     
     counter += 1
 
@@ -261,9 +261,9 @@ def video_frame_callback(input_image):
                     correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
 
-    new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
+    # new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
 
-    return new_frame
+    return frame
 
 
 
