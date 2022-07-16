@@ -9,14 +9,14 @@ import streamlit as st
 from functions.helper import *
 from functions.pose_calc import *
 
-def playSound(filename):
+def playSound_ST(filename):
         audio_file = open(filename, 'rb')
         audio_bytes = audio_file.read()
 
         st.audio(audio_bytes, format='audio/ogg')
 
 
-def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
+def correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx):
 
     keypoint_detection_threshold = 0.1
 
@@ -71,7 +71,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
             # Array_Order: left_leg, right_leg, left_arm, right_arm, left_leg_torso, right_leg_torso
 
             if pose_angle_differences_abs[4] > angl_thresh or pose_angle_differences_abs[5] > angl_thresh:
-                playSound(Straighten_front_leg)
+                playSound_ST(Straighten_front_leg)
 
     # (1) Tadhasana:
     # -----------
@@ -88,7 +88,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
             if (pose_angle_differences_abs[0] > angl_thresh or 
                 pose_angle_differences_abs[1] > angl_thresh
                 ):
-                playSound(Lengthen_the_spine)
+                playSound_ST(Lengthen_the_spine)
 
     # (2) Trikonasana:
     # ----------------------------------------
@@ -104,13 +104,13 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
             # Array_Order: left_leg, right_leg, left_arm, right_arm, right_arm_left_arm
 
             if pose_angle_differences_abs[1] > angl_thresh:
-                playSound(Straighten_front_leg)
+                playSound_ST(Straighten_front_leg)
 
             elif (pose_angle_differences_abs[4] > angl_thresh or 
                 pose_angle_differences_abs[2] > angl_thresh or 
                 pose_angle_differences_abs[3] > angl_thresh
                 ):
-                playSound(Keep_arms_in_one_line)
+                playSound_ST(Keep_arms_in_one_line)
 
     # (3) Warrior_I:
     # ------------
@@ -126,10 +126,10 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
             # Array_Order: left_leg, right_leg, left_arm, right_arm, left_arm_torso, right_arm_torso
         
             if pose_angle_differences_abs[1] > angl_thresh:
-                playSound(Bend_the_knee)
+                playSound_ST(Bend_the_knee)
 
             elif pose_angle_differences_abs[5] > angl_thresh:
-                playSound(Lift_the_arms_higher)
+                playSound_ST(Lift_the_arms_higher)
 
     # (4) Warrior_II:
     # ------------
@@ -149,7 +149,7 @@ def correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx):
                 pose_angle_differences_abs[1] > 30 and 
                 pose_angle_differences_abs[3] > 30
                 ):
-                playSound(Lift_the_backarm_up)
+                playSound_ST(Lift_the_backarm_up)
 
             elif pose_angle_differences_abs[5]  > 30:
-                playSound(Bend_the_knee)
+                playSound_ST(Bend_the_knee)

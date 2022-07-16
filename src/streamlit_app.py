@@ -216,7 +216,7 @@ def video_frame_callback(input_image):
                 if mse <= 200:
                     correct = True
                 if mse > 201:              
-                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                    correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
 
         if seq_step == 1:
@@ -225,7 +225,7 @@ def video_frame_callback(input_image):
                     if mse <= 200:
                         correct = True
                     if mse > 201:              
-                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                        correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
         if seq_step == 2:
             if time.time() - time_in > 50:
@@ -233,7 +233,7 @@ def video_frame_callback(input_image):
                     if mse <= 200:
                         correct = True
                     if mse > 201:              
-                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                        correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
         if seq_step == 3:
             if time.time() - time_in > 45:
@@ -241,7 +241,7 @@ def video_frame_callback(input_image):
                     if mse <= 200:
                         correct = True
                     if mse > 201:              
-                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                        correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
         if seq_step == 4:
             if time.time() - time_in > 95:
@@ -249,16 +249,16 @@ def video_frame_callback(input_image):
                     if mse <= 200:
                         correct = True
                     if mse > 201:              
-                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                        correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
     else: # corrections for all poses
         if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
                 if mse <= 150:
                     correct = True
                     CorrectPose = "./src/functions/sequence_commands/Correct.ogg"
-                    playSound(CorrectPose)
+                    playSound_ST(CorrectPose)
                 if mse > 201:              
-                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+                    correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
 
     # new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
