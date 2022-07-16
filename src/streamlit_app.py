@@ -8,11 +8,7 @@ import glob
 import random
 import tqdm
 import time
-from streamlit_webrtc import (
-    RTCConfiguration,
-    WebRtcMode,
-    webrtc_streamer,
-)
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
 import av
 
 # for computing cosine similarity frim images
@@ -124,8 +120,6 @@ for pose_idx in range(5):
     # ref_images.append(ref_img)
 
 seq_step = 0 # sequence step
-
-# webrtc_streamer(key="example")
 
 def video_frame_callback(input_image):
 
@@ -267,55 +261,29 @@ def video_frame_callback(input_image):
                     correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
 
-    # if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
-    #     if mse <= 200:
-    #         correct = True
-    #     if mse > 201:              
-    #         correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)                
-
-
-    # draw_FPS(frame, counter, fps, start_time) 
-    
-    # cv2.imshow('MoveNet frame', frame)
-
-    # if capture_frames == 1:
-    #     cv2.imwrite('./frames/Frame'+str(counter)+'.jpg', frame)
-    
-    # define brake-out: if we hit "q" on the keyboard
-    # frame capure is stopped
-    # if cv2.waitKey(10) & 0xFF==ord('q'):
-    #     break
-
     new_frame = av.VideoFrame.from_ndarray(frame, format="bgr24")
 
     return new_frame
+
+
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
 )
 
-webrtc_streamer(
-        key="opencv-filter",
-        mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
-        video_frame_callback=video_frame_callback,
-        media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,
-    )
+class VideoProcessor:
+    def recv(self, frame):
+        img = frame.to_ndarray(format="bgr24")
 
+        img = video_frame_callback(img)
 
-# cap.release() # release the camera
+        return av.VideoFrame.from_ndarray(img, format="bgr24")
 
-# cv2.destroyAllWindows() # close all windows
-
-
-## show the last captured frame
-# webcam_frame = frame.copy()
-# plt.imshow(webcam_frame)
-# # print shape
-# print(f'Image shape is: {webcam_frame.shape}')
-
-# save the last image frame
-# cv2.imwrite('./frames/Frame'+str(random.randint(1, 1000_000))+'.jpg', frame)
-# cv2.imwrite('./framesFrame'+str(0)+'.jpg', frame)
-
+webrtc_ctx = webrtc_streamer(
+    key="WYH",
+    mode=WebRtcMode.SENDRECV,
+    rtc_configuration=RTC_CONFIGURATION,
+    media_stream_constraints={"video": True, "audio": False},
+    video_processor_factory=VideoProcessor,
+    async_processing=True,
+)
