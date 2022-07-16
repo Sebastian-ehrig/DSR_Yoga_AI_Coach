@@ -10,6 +10,7 @@ from functions.pose_calc import *
 
 def playSound(filename):
     pygame.mixer.quit() 
+    pygame.init()
     pygame.mixer.init(44100, -16, 2, 4096)
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
