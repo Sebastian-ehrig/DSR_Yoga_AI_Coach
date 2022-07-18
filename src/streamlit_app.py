@@ -121,8 +121,8 @@ for pose_idx in range(5):
 
 seq_step = 0 # sequence step
 
-st.header("YogaAI Demo using WebRTC")
-
+st.header("YogaAI Demo")
+st.subheader("Real time pose detection using TensorFlow lite")
 
 def video_frame_callback(input_image):
 
