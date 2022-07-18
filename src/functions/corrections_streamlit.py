@@ -9,18 +9,18 @@ import streamlit as st
 from functions.helper import *
 from functions.pose_calc import *
 
-# def playSound_ST(filename):
-#         audio_file = open(filename, 'rb')
-#         audio_bytes = audio_file.read()
-
-#         st.audio(audio_bytes, format='audio/ogg')
-
-
 def playSound_ST(filename):
-        sound = st.empty()
-        sound.markdown(filename, unsafe_allow_html=True)  # will display a st.audio with the sound you specified in the "src" of the html_string and autoplay it
-        time.sleep(2)  # wait for 2 seconds to finish the playing of the audio
-        sound.empty()  # optionally delete the element afterwards
+        audio_file = open(filename, 'rb')
+        audio_bytes = audio_file.read()
+
+        st.audio(audio_bytes, format='audio/ogg')
+
+
+# def playSound_ST(filename):
+#         sound = st.empty()
+#         sound.markdown(filename, unsafe_allow_html=True)  # will display a st.audio with the sound you specified in the "src" of the html_string and autoplay it
+#         time.sleep(2)  # wait for 2 seconds to finish the playing of the audio
+#         sound.empty()  # optionally delete the element afterwards
 
 
 def correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx):
@@ -56,52 +56,52 @@ def correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx)
 
     # Voice Commands for pose corrections:
     # ------------------------------------
-        # Lift_the_backarm_up = "./src/functions/voice_commands/Lift_the_backarm_up.ogg"
-        # Bend_the_knee = "./src/functions/voice_commands/Bend_the_knee.ogg"
-        # Lengthen_the_spine = './src/functions/voice_commands/Lengthen_the_spine.ogg'
-        # Straighten_front_leg = "./src/functions/voice_commands/Straighten_front_leg.ogg"
-        # Keep_arms_in_one_line = "./src/functions/voice_commands/Keep_arms_in_one_line.ogg"
-        # Lift_the_arms_higher = "./src/functions/voice_commands/Lift_the_arms_higher.ogg"
+        Lift_the_backarm_up = "./src/functions/voice_commands/Lift_the_backarm_up.ogg"
+        Bend_the_knee = "./src/functions/voice_commands/Bend_the_knee.ogg"
+        Lengthen_the_spine = './src/functions/voice_commands/Lengthen_the_spine.ogg'
+        Straighten_front_leg = "./src/functions/voice_commands/Straighten_front_leg.ogg"
+        Keep_arms_in_one_line = "./src/functions/voice_commands/Keep_arms_in_one_line.ogg"
+        Lift_the_arms_higher = "./src/functions/voice_commands/Lift_the_arms_higher.ogg"
 
 
     # Voice command paths for html code:
     # ----------------------------------
 
-        Lift_the_backarm_up = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Lift_the_backarm_up.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Lift_the_backarm_up = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Lift_the_backarm_up.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
-        Bend_the_knee = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Bend_the_knee.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Bend_the_knee = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Bend_the_knee.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
-        Lengthen_the_spine = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Lengthen_the_spine.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Lengthen_the_spine = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Lengthen_the_spine.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
-        Straighten_front_leg = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Straighten_front_leg.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Straighten_front_leg = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Straighten_front_leg.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
-        Keep_arms_in_one_line = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Keep_arms_in_one_line.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Keep_arms_in_one_line = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Keep_arms_in_one_line.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
-        Lift_the_arms_higher = """
-                <audio controls autoplay>
-                <source src="./src/functions/voice_commands/Lift_the_arms_higher.ogg" type="audio/ogg">
-                </audio>
-                """
+        # Lift_the_arms_higher = """
+        #         <audio controls autoplay>
+        #         <source src="./src/functions/voice_commands/Lift_the_arms_higher.ogg" type="audio/ogg">
+        #         </audio>
+        #         """
 
 
     # (0) Downward_Facing_Dog:
