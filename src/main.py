@@ -30,13 +30,13 @@ print("Available cameras:", cams)
 # Load Model:
 #------------
 
-single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
+single_pose_thunder3=0 # Movenet singlepose thunder3 to be used, 
                        # else Movenet singlepose lightning3
 capture_frames=0 # if frames are to be captured
 
 confidence_score = 0.2 # threshold for drawing the keypoints
 
-external_cam = 1 # 1 if external camera is to be used
+external_cam = 0 # 1 if external camera is to be used
 
 play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
@@ -61,8 +61,6 @@ warnings.filterwarnings('ignore')
 # Variables to calculate FPS
 counter, fps = 0, 0
 startTime = time.time()
-CommandExecuted = False
-
 
 #---------------------------------------------
 # initialize video frame capture using OpenCV2

@@ -192,13 +192,13 @@ def draw_FPS(frame, counter, fps, start_time):
 def classifier(keypoints_with_scores):
     
     # Load label list
-    label_path = './pose_classification_results/pose_classifier/pose_labels.txt'
+    label_path = './pose_classification/pose_classifier/pose_labels.txt'
     with open(label_path, 'r') as f:
         lines = f.readlines()
         labels = [line.rstrip() for line in lines]
     
     # Initialize the TFLite model.
-    model_path_classifier = "./pose_classification_results/pose_classifier/pose_classifier.tflite"
+    model_path_classifier = "./pose_classification/pose_classifier/pose_classifier.tflite"
     interpreter_PoseClass = tf.lite.Interpreter(model_path=model_path_classifier, num_threads=4)
     interpreter_PoseClass.allocate_tensors()
 
@@ -253,10 +253,10 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
-        error_text = 'Make sure the person is fully visible.'
-        text_location = (left_margin, 3 * row_size)
-        cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
-                    font_size, text_color, font_thickness)
+        # error_text = 'Make sure the person is fully visible.'
+        # text_location = (left_margin, 3 * row_size)
+        # cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+        #             font_size, text_color, font_thickness)
 
     else:                
 
@@ -295,10 +295,10 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
-        error_text = 'Make sure the person is fully visible.'
-        text_location = (left_margin, 3 * row_size)
-        cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
-                    font_size, text_color, font_thickness)
+        # error_text = 'Make sure the person is fully visible.'
+        # text_location = (left_margin, 3 * row_size)
+        # cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+        #             font_size, text_color, font_thickness)
 
     else:                
 
@@ -310,6 +310,7 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             # text_location = (left_margin, (1 + 2) * row_size)
             # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
             #             font_size, text_color, font_thickness)
+
             
             probability2 = round(cos_sim_score_kpt, 2)
             result_text2 = 'Cosine_Sim_Score' + ' (' + str(probability2) + ')'
