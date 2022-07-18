@@ -121,6 +121,9 @@ for pose_idx in range(5):
 
 seq_step = 0 # sequence step
 
+st.header("YogaAI Demo using WebRTC")
+
+
 def video_frame_callback(input_image):
 
     # global counter
@@ -280,6 +283,7 @@ class VideoProcessor:
         img = video_frame_callback(img)
 
         return av.VideoFrame.from_ndarray(img, format="bgr24")
+
 
 webrtc_ctx = webrtc_streamer(
     key="WYH",
