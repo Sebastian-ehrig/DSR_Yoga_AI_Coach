@@ -122,7 +122,8 @@ for pose_idx in range(5):
 seq_step = 0 # sequence step
 
 st.header("YogaAI Demo")
-st.subheader("Real time pose detection using TensorFlow lite")
+st.subheader("Real time pose detection and pose correction")
+st.subheader("using TensorFlow-Movenet")
 
 def video_frame_callback(input_image):
 
