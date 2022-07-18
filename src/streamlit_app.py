@@ -193,7 +193,7 @@ def video_frame_callback(input_image):
     # draw class prediction results
     frame = draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
-    frame = draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
+    frame = draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
     # ~https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
     # thread1 = ThreadWithResult(target=yoga_sequence_lead, args=(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse))

@@ -249,7 +249,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
     # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        error_text = 'Not enough keypoints detected.'
+        error_text = 'Not enough keypoints detected'
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
@@ -274,11 +274,11 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
             # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
             #             font_size, text_color, font_thickness)
 
-            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=2.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
 
     return frame
 
-def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame):
+def draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame):
     # Visualization parameters
     keypoint_detection_threshold = 0.1
     classification_results_to_show = 1
@@ -291,7 +291,7 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
     # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        error_text = 'Not enough keypoints detected.'
+        error_text = 'Not enough keypoints detected'
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
@@ -319,6 +319,7 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
             text_location2 = (left_margin, (1 + 2) * row_size)
 
+            MSE_shade_spotOn = (0, 255, 0) # bright green
             MSE_shades = (15, 255, 80) # green
             MSE_shades2 = (255, 235, 0) # yellow
             MSE_shades3 = (240, 128, 0) # orange
@@ -326,17 +327,22 @@ def draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             
             # https://stackoverflow.com/questions/56472024/how-to-change-the-opacity-of-boxes-cv2-rectangle
             # cosine similarity
-            ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=60 + row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            # -----------------
+            # ps.putBText(frame,result_text2,text_offset_x=20,text_offset_y=60 + row_size,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            
             # mean square error
+            # -----------------
             # ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
-            if mse < 75:
-                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=80 + 2 * row_size,vspace=10,hspace=10, font_scale=2.0,background_RGB=(228,225,222),text_RGB=MSE_shades)
+            if mse < 50:
+                ps.putBText(frame,'*****',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shade_spotOn)
+            elif mse < 75:
+                ps.putBText(frame,'****',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades)
             elif mse < 150:
-                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=80 + 2 * row_size,vspace=10,hspace=10, font_scale=2.0,background_RGB=(228,225,222),text_RGB=MSE_shades2)
+                ps.putBText(frame,'***',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades2)
             elif mse < 225:
-                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=80 + 2 * row_size,vspace=10,hspace=10, font_scale=2.0,background_RGB=(228,225,222),text_RGB=MSE_shades3)
+                ps.putBText(frame,'**',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades3)
             elif mse > 225:
-                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=80 + 2 * row_size,vspace=10,hspace=10, font_scale=2.0,background_RGB=(228,225,222),text_RGB=MSE_shades4)
+                ps.putBText(frame,'*',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades4)
  
     return frame
 

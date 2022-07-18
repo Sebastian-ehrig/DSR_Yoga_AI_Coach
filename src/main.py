@@ -30,7 +30,7 @@ print("Available cameras:", cams)
 # Load Model:
 #------------
 
-single_pose_thunder3=0 # Movenet singlepose thunder3 to be used, 
+single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
                        # else Movenet singlepose lightning3
 capture_frames=0 # if frames are to be captured
 
@@ -189,7 +189,7 @@ while cap.isOpened():
     # draw class prediction results
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
     # draw cosine-similarity scores
-    draw_cosine_similarity(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
+    draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
 
     # ~https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
     # thread1 = ThreadWithResult(target=yoga_sequence_lead, args=(keypoints_reference_pose, keypoints_with_scores, pose_idx, seq_step, mse))
