@@ -13,7 +13,7 @@ def playSound_ST(filename):
         audio_file = open(filename, 'rb')
         audio_bytes = audio_file.read()
 
-        st.audio(audio_bytes, format='audio/ogg')
+        st.audio(audio_bytes, format='audio/ogg', auto_play=True)
 
 
 def correct_angles_ST(keypoints_reference_pose, keypoints_with_scores, pose_idx):
