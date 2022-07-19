@@ -1,4 +1,4 @@
-DSR_Yoga_AI_Coach
+Yoga_AI_Coach
 =================
 
 The Yoga_AI_Coach is a python based application able to detect and correct yoga-poses to lead a Yoga training sequence composed of different Yoga Asanas (Yoga poses). The application is able to detect in real-time all body movements captured via a camera using TensorflowLite Movenet for pose detection.
