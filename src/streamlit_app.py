@@ -23,6 +23,9 @@ from functions.pose_calc import *
 from functions.corrections_streamlit import *
 from functions.sequence_lead import *
 
+st.header("YogaAI Demo")
+st.subheader("Real time pose detection and pose correction using TensorFlow")
+
 # check what cameras are available
 cams = glob.glob("/dev/video?")
 print("Available cameras:", cams)
@@ -125,9 +128,6 @@ for pose_idx in range(5):
     # ref_images.append(ref_img)
 
 seq_step = 0 # sequence step
-
-st.header("YogaAI Demo")
-st.subheader("Real time pose detection and pose correction using TensorFlow")
 
 def video_frame_callback(input_image):
 
@@ -275,8 +275,6 @@ def video_frame_callback(input_image):
 
     return frame
 
-st.subheader("For making pose-predictions the person needs to be fully captured by the frame")
-
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
@@ -301,3 +299,5 @@ webrtc_ctx = webrtc_streamer(
     video_processor_factory=VideoProcessor,
     async_processing=True,
 )
+
+st.subheader("For making pose-predictions the person needs to be fully captured by the frame")
