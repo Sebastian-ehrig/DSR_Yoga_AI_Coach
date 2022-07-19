@@ -31,8 +31,9 @@ print("Available cameras:", cams)
 # Load Model:
 #------------
 
-single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
+# single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
                        # else Movenet singlepose lightning3
+
 capture_frames=0 # if frames are to be captured
 
 confidence_score = 0.2 # threshold for drawing the keypoints
@@ -43,8 +44,17 @@ play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
+tensorflow_model = st.radio(
+     "Select pose-dection model",
+     ('Movenet_singlepose_thunder3', 'Movenet_singlepose_lightning3'))
+
+if tensorflow_model == 'Movenet_singlepose_thunder3':
+     st.write('You selected Movenet_singlepose_thunder3')
+else:
+     st.write("You selected Movenet_singlepose_lightning3")
+
     # Model: Movenet singlepose thunder3
-if single_pose_thunder3==1:
+if tensorflow_model=='Movenet_singlepose_thunder3':
     interpreter = tf.lite.Interpreter(model_path=model_path_thunder_3)
     interpreter.allocate_tensors()
     image_size=(256, 256)
@@ -122,7 +132,7 @@ for pose_idx in range(5):
 seq_step = 0 # sequence step
 
 st.header("YogaAI Demo")
-st.subheader("Real time pose detection and pose correction using TensorFlow-Movenet")
+st.subheader("Real time pose detection and pose correction using TensorFlow")
 
 def video_frame_callback(input_image):
 
