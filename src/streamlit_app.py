@@ -300,4 +300,4 @@ webrtc_ctx = webrtc_streamer(
     async_processing=True,
 )
 
-st.subheader("For making pose-predictions the person needs to be fully captured by the frame")
+st._transparent_write("Pose-predictions are performed once the person is fully visible in the camera")
