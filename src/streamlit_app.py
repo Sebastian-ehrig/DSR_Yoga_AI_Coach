@@ -31,12 +31,7 @@ print("Available cameras:", cams)
 # Load Model:
 #------------
 
-# single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
-                       # else Movenet singlepose lightning3
-
 capture_frames=0 # if frames are to be captured
-
-confidence_score = 0.2 # threshold for drawing the keypoints
 
 external_cam = 0 # 1 if external camera is to be used
 
@@ -44,7 +39,7 @@ play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
-
+# Load Model:
 tensorflow_model = st.radio(
      "Select TensorFlow model",
      ('Movenet_singlepose_thunder', 'Movenet_singlepose_lightning'))
@@ -60,6 +55,11 @@ else:
     interpreter = tf.lite.Interpreter(model_path=model_path_lightning_3)
     interpreter.allocate_tensors()
     image_size=(192, 192)
+
+# threshold for drawing the keypoints
+DEFAULT_CONFIDENCE_THRESHOLD = 0.2
+confidence_score = st.slider(
+        "Confidence threshold", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
 
 
 # ignore warnings
