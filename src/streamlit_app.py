@@ -39,7 +39,7 @@ tensorflow_model = st.radio(
      ('Movenet_singlepose_thunder', 'Movenet_singlepose_lightning'))
 
     # Model: Movenet singlepose thunder3
-if tensorflow_model=='Movenet_singlepose_thunder3':
+if tensorflow_model=='Movenet_singlepose_thunder':
     interpreter = tf.lite.Interpreter(model_path=model_path_thunder_3)
     interpreter.allocate_tensors()
     image_size=(256, 256)
