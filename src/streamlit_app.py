@@ -59,8 +59,7 @@ else:
 # threshold for drawing the keypoints
 DEFAULT_CONFIDENCE_THRESHOLD = 0.2
 confidence_score = st.slider(
-        "Confidence threshold", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
-
+        "Confidence threshold for detecting the keypoints", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
 
 # ignore warnings
 warnings.filterwarnings('ignore')
@@ -276,6 +275,7 @@ def video_frame_callback(input_image):
 
     return frame
 
+st.subheader("For making pose-predictions the person needs to be fully captured by the frame")
 
 
 RTC_CONFIGURATION = RTCConfiguration(
