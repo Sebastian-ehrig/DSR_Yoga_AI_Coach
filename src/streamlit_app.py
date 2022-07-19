@@ -38,6 +38,8 @@ capture_frames=0 # if frames are to be captured
 
 external_cam = 0 # 1 if external camera is to be used
 
+confidence_score = 0.2 # threshold for drawing the keypoints
+
 play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
@@ -59,10 +61,10 @@ else:
     interpreter.allocate_tensors()
     image_size=(192, 192)
 
-# threshold for drawing the keypoints
-DEFAULT_CONFIDENCE_THRESHOLD = 0.2
-confidence_score = st.slider(
-        "Confidence threshold for detecting the keypoints", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
+# Slider for selecting the threshold for drawing the keypoints
+# DEFAULT_CONFIDENCE_THRESHOLD = 0.2
+# confidence_score = st.slider(
+#         "Confidence threshold for detecting the keypoints", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
 
 # ignore warnings
 warnings.filterwarnings('ignore')
