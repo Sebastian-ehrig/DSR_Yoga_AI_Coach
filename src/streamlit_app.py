@@ -44,28 +44,6 @@ play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
-tensorflow_model = st.radio(
-     "Select pose-dection model",
-     ('Movenet_singlepose_thunder3', 'Movenet_singlepose_lightning3'))
-
-if tensorflow_model == 'Movenet_singlepose_thunder3':
-     st.write('You selected Movenet_singlepose_thunder3')
-else:
-     st.write("You selected Movenet_singlepose_lightning3")
-
-    # Model: Movenet singlepose thunder3
-if tensorflow_model=='Movenet_singlepose_thunder3':
-    interpreter = tf.lite.Interpreter(model_path=model_path_thunder_3)
-    interpreter.allocate_tensors()
-    image_size=(256, 256)
-
-    # Model: Movenet singlepose lightning3
-else:
-    interpreter = tf.lite.Interpreter(model_path=model_path_lightning_3)
-    interpreter.allocate_tensors()
-    image_size=(192, 192)
-
-
 # ignore warnings
 warnings.filterwarnings('ignore')
 
@@ -305,3 +283,24 @@ webrtc_ctx = webrtc_streamer(
     video_processor_factory=VideoProcessor,
     async_processing=True,
 )
+
+tensorflow_model = st.radio(
+     "Select pose-dection model",
+     ('Movenet_singlepose_thunder3', 'Movenet_singlepose_lightning3'))
+
+if tensorflow_model == 'Movenet_singlepose_thunder3':
+     st.write('You selected "Movenet_singlepose_thunder3" (high accuracy; low frame rate)')
+else:
+     st.write('You selected "Movenet_singlepose_lightning3" (low accuracy; high frame rate)')
+
+    # Model: Movenet singlepose thunder3
+if tensorflow_model=='Movenet_singlepose_thunder3':
+    interpreter = tf.lite.Interpreter(model_path=model_path_thunder_3)
+    interpreter.allocate_tensors()
+    image_size=(256, 256)
+
+    # Model: Movenet singlepose lightning3
+else:
+    interpreter = tf.lite.Interpreter(model_path=model_path_lightning_3)
+    interpreter.allocate_tensors()
+    image_size=(192, 192)
