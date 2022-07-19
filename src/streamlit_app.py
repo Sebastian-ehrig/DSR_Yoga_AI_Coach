@@ -285,13 +285,13 @@ webrtc_ctx = webrtc_streamer(
 )
 
 tensorflow_model = st.radio(
-     "Select pose-dection model",
-     ('Movenet_singlepose_thunder3', 'Movenet_singlepose_lightning3'))
+     "Select TensorFlow model",
+     ('Movenet_singlepose_thunder (high accuracy; low frame rate)', 'Movenet_singlepose_lightning (low accuracy; high frame rate)'))
 
-if tensorflow_model == 'Movenet_singlepose_thunder3':
-     st.write('You selected "Movenet_singlepose_thunder3" (high accuracy; low frame rate)')
+if tensorflow_model == 'Movenet_singlepose_thunder':
+     st.write('Selected model: "Movenet_singlepose_thunder')
 else:
-     st.write('You selected "Movenet_singlepose_lightning3" (low accuracy; high frame rate)')
+     st.write('Selected model: "Movenet_singlepose_lightning')
 
     # Model: Movenet singlepose thunder3
 if tensorflow_model=='Movenet_singlepose_thunder3':
