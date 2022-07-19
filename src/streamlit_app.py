@@ -51,9 +51,9 @@ else:
     image_size=(192, 192)
 
 # Slider for selecting the threshold for drawing the keypoints
-# DEFAULT_CONFIDENCE_THRESHOLD = 0.2
-# confidence_score = st.slider(
-#         "Confidence threshold for detecting the keypoints", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
+DEFAULT_CONFIDENCE_THRESHOLD = 0.2
+confidence_score = st.slider(
+        "Confidence threshold for detecting the keypoints", 0.0, 0.6, DEFAULT_CONFIDENCE_THRESHOLD, 0.01)
 
 # ignore warnings
 warnings.filterwarnings('ignore')
