@@ -70,7 +70,7 @@ target/
 Documents/
 backup/
 frames/
-jupyter_notebooks/
+Jupyter_notebooks/
 
 # VS Code
 .vscode/
