@@ -5,15 +5,7 @@ import matplotlib.pyplot as plt
 import cv2 #cv2
 import warnings
 import glob
-import random
-import tqdm
 import time
-# from streamlit_webrtc import webrtc_streamer
-
-# for computing cosine similarity frim images
-# from img2vec_pytorch import Img2Vec
-# from PIL import Image
-# from playsound import playsound
 
 from helper.conf import *
 from functions.helper import *
@@ -26,9 +18,12 @@ from functions.sequence_lead import *
 cams = glob.glob("/dev/video?")
 print("Available cameras:", cams)
 
-#------------
-# Load Model:
-#------------
+# ignore warnings
+warnings.filterwarnings('ignore')
+
+#----------------------------------------
+# Load Model and define model parameters:
+#----------------------------------------
 
 single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
                        # else Movenet singlepose lightning3
@@ -42,6 +37,13 @@ play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
+seq_step = 0 # sequence step
+
+# Variables to calculate FPS
+counter, fps = 0, 0
+startTime = time.time()
+
+
     # Model: Movenet singlepose thunder3
 if single_pose_thunder3==1:
     interpreter = tf.lite.Interpreter(model_path=model_path_thunder_3)
@@ -54,21 +56,9 @@ else:
     interpreter.allocate_tensors()
     image_size=(192, 192)
 
-
-# ignore warnings
-warnings.filterwarnings('ignore')
-
-# Variables to calculate FPS
-counter, fps = 0, 0
-startTime = time.time()
-
 #---------------------------------------------
 # initialize video frame capture using OpenCV2
 #---------------------------------------------
-
-# Streamlit component which deals with video and audio real-time I/O through web browsers
-#  webrtc_streamer(key="example")
-
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
@@ -81,6 +71,7 @@ else:
 # # 1080p
 # frame_Width = 1920
 # frame_Height= 1080
+
 # # 720p
 frame_Width = 1280
 frame_Height= 720
@@ -93,8 +84,10 @@ cap.set(4,frame_Height) # Height of the frames in the video stream
 # white_frame.fill(255)
 # # or img[:] = 255
 
+# -------------------------------------------------------
 # Load reference pose for computing the cosine-similarity
 # -------------------------------------------------------
+
 poses_df = []
 ref_images = []
 for pose_idx in range(5):
@@ -106,17 +99,10 @@ for pose_idx in range(5):
     # pose_df = pose_df.ravel()   
     poses_df.append(pose_df)
 
-    #Initialize Img2Vec without GPU
-    # img2vec = Img2Vec(cuda=False)
 
-    # ref_image = cv2.imread(ref_image_path)
-    # ref_image = cv2.cvtColor(ref_image, cv2.COLOR_BGR2RGB)
-    # ref_image_pil = Image.fromarray(ref_image)
-    # ref_img  =  img2vec.get_vec(ref_image_pil)
-
-    # ref_images.append(ref_img)
-
-seq_step = 0 # sequence step
+# -------------------
+# Begin frame capture 
+# -------------------
 
 while cap.isOpened():
 
@@ -267,11 +253,9 @@ while cap.isOpened():
     # frame capure is stopped
     if cv2.waitKey(10) & 0xFF==ord('q'):
         break
-    
         
 cap.release() # release the camera
 cv2.destroyAllWindows() # close all windows
-
 
 ## show the last captured frame
 # webcam_frame = frame.copy()
