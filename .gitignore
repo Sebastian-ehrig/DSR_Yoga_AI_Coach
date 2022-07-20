@@ -71,6 +71,7 @@ Documents/
 backup/
 frames/
 Jupyter_notebooks/
+yoga_poses_for_training/
 
 # VS Code
 .vscode/
