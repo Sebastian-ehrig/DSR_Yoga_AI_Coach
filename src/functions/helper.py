@@ -26,11 +26,6 @@ class ThreadWithResult(threading.Thread):
 def cosine_similarity(a, b):
   return dot(a, b)/(norm(a)*norm(b))
 
-# Define function for computing cosine-similarity from 2-column arrays
-# https://stackoverflow.com/questions/72039174/what-is-the-fastest-way-of-calculate-cosine-similarity-between-rows-of-two-same
-def cosine_sim(x, y):
-    return (x * y).sum(axis=1) / (np.linalg.norm(x, axis=1) * np.linalg.norm(y, axis=1))
-
 # define function for making keypoint predictions
 def make_predictions(img, interpreter, image_size):
         enhance_contrast = 0
@@ -334,15 +329,15 @@ def draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             # -----------------
             # ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=160 + 2 * row_size,vspace=10,hspace=10, font_scale=3.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
             if mse < 50:
-                ps.putBText(frame,'*****',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shade_spotOn)
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shade_spotOn)
             elif mse < 75:
-                ps.putBText(frame,'****',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades)
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades)
             elif mse < 150:
-                ps.putBText(frame,'***',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades2)
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades2)
             elif mse < 225:
-                ps.putBText(frame,'**',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades3)
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades3)
             elif mse > 225:
-                ps.putBText(frame,'*',text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades4)
+                ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades4)
  
     return frame
 
