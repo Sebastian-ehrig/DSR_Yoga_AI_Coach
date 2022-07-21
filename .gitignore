@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+src/functions/__pycache__/
+src/__pycache__/
 *.py[cod]
 
 # C extensions
@@ -72,7 +74,6 @@ backup/
 frames/
 Jupyter_notebooks/
 yoga_poses_for_training/
-src/functions/__pycache__/
 
 # VS Code
 .vscode/
