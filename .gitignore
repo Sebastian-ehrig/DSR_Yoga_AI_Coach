@@ -72,6 +72,7 @@ backup/
 frames/
 Jupyter_notebooks/
 yoga_poses_for_training/
+src/functions/__pycache__/
 
 # VS Code
 .vscode/
