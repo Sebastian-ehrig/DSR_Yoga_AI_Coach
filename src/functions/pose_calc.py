@@ -463,6 +463,246 @@ def asana_pose_angles_from_frame(keypoints_with_scores, pose_idx):
 
         return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
 
+# (5) Utthita_Parsvakonasana:
+# ------------
+    elif pose_idx == 5:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7],
+            keypoints_with_scores[0][0][9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[0][0][10],
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[0][0][11],
+            keypoints_with_scores[0][0][13],
+            keypoints_with_scores[0][0][15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[0][0][12],
+            keypoints_with_scores[0][0][14],
+            keypoints_with_scores[0][0][16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (6) Halasana:
+# ------------
+    elif pose_idx == 6:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7],
+            keypoints_with_scores[0][0][9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[0][0][10],
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[0][0][11],
+            keypoints_with_scores[0][0][13],
+            keypoints_with_scores[0][0][15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[0][0][12],
+            keypoints_with_scores[0][0][14],
+            keypoints_with_scores[0][0][16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (7) Chaturanga:
+# ------------
+    elif pose_idx == 7:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7],
+            keypoints_with_scores[0][0][9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[0][0][10],
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[0][0][11],
+            keypoints_with_scores[0][0][13],
+            keypoints_with_scores[0][0][15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[0][0][12],
+            keypoints_with_scores[0][0][14],
+            keypoints_with_scores[0][0][16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (8) Paschimottanasana:
+# ------------
+    elif pose_idx == 8:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7],
+            keypoints_with_scores[0][0][9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[0][0][10],
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[0][0][11],
+            keypoints_with_scores[0][0][13],
+            keypoints_with_scores[0][0][15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[0][0][12],
+            keypoints_with_scores[0][0][14],
+            keypoints_with_scores[0][0][16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (9) Prasarita_Padottanasana:
+# ------------
+    elif pose_idx == 9:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6],
+            keypoints_with_scores[0][0][5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[0][0][5],
+            keypoints_with_scores[0][0][7],
+            keypoints_with_scores[0][0][9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[0][0][10],
+            keypoints_with_scores[0][0][8],
+            keypoints_with_scores[0][0][6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[0][0][11],
+            keypoints_with_scores[0][0][13],
+            keypoints_with_scores[0][0][15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[0][0][12],
+            keypoints_with_scores[0][0][14],
+            keypoints_with_scores[0][0][16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
 def asana_pose_angles_from_reference(keypoints_with_scores, pose_idx):
 
 # Selected Asanas:
@@ -663,6 +903,246 @@ def asana_pose_angles_from_reference(keypoints_with_scores, pose_idx):
 # (4) Warrior_II:
 # ------------
     elif pose_idx == 4:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[6],
+            keypoints_with_scores[5],
+            keypoints_with_scores[7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[8],
+            keypoints_with_scores[6],
+            keypoints_with_scores[5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[5],
+            keypoints_with_scores[7],
+            keypoints_with_scores[9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[10],
+            keypoints_with_scores[8],
+            keypoints_with_scores[6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[11],
+            keypoints_with_scores[13],
+            keypoints_with_scores[15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[12],
+            keypoints_with_scores[14],
+            keypoints_with_scores[16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (5) Utthita_Parsvakonasana:
+# ------------
+    elif pose_idx == 5:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[6],
+            keypoints_with_scores[5],
+            keypoints_with_scores[7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[8],
+            keypoints_with_scores[6],
+            keypoints_with_scores[5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[5],
+            keypoints_with_scores[7],
+            keypoints_with_scores[9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[10],
+            keypoints_with_scores[8],
+            keypoints_with_scores[6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[11],
+            keypoints_with_scores[13],
+            keypoints_with_scores[15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[12],
+            keypoints_with_scores[14],
+            keypoints_with_scores[16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (6) Halasana:
+# ------------
+    elif pose_idx == 6:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[6],
+            keypoints_with_scores[5],
+            keypoints_with_scores[7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[8],
+            keypoints_with_scores[6],
+            keypoints_with_scores[5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[5],
+            keypoints_with_scores[7],
+            keypoints_with_scores[9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[10],
+            keypoints_with_scores[8],
+            keypoints_with_scores[6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[11],
+            keypoints_with_scores[13],
+            keypoints_with_scores[15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[12],
+            keypoints_with_scores[14],
+            keypoints_with_scores[16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (7) Chaturanga:
+# ------------
+    elif pose_idx == 7:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[6],
+            keypoints_with_scores[5],
+            keypoints_with_scores[7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[8],
+            keypoints_with_scores[6],
+            keypoints_with_scores[5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[5],
+            keypoints_with_scores[7],
+            keypoints_with_scores[9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[10],
+            keypoints_with_scores[8],
+            keypoints_with_scores[6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[11],
+            keypoints_with_scores[13],
+            keypoints_with_scores[15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[12],
+            keypoints_with_scores[14],
+            keypoints_with_scores[16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (8) Paschimottanasana:
+# ------------
+    elif pose_idx == 8:
+
+        #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
+        left_arm_and_torso = getAngle(
+            keypoints_with_scores[6],
+            keypoints_with_scores[5],
+            keypoints_with_scores[7]
+        )
+
+        #right_arm_and_torso: 8,6,5 (left elbow, right shoulder and left shoulder)
+        right_arm_and_torso = getAngle(
+            keypoints_with_scores[8],
+            keypoints_with_scores[6],
+            keypoints_with_scores[5]
+        )
+
+        #left_arm: 5, 7, 9 (shoulder, elbow and wrist)
+        left_arm = getAngle(
+            keypoints_with_scores[5],
+            keypoints_with_scores[7],
+            keypoints_with_scores[9]
+        )
+        
+        #right_arm: 10, 8, 6 (shoulder, elbow and wrist)
+        right_arm = getAngle(
+            keypoints_with_scores[10],
+            keypoints_with_scores[8],
+            keypoints_with_scores[6]
+        )
+
+        #left leg: 11, 13, 15 (hip, knee and ankle)
+        left_leg = getAngle(
+            keypoints_with_scores[11],
+            keypoints_with_scores[13],
+            keypoints_with_scores[15]
+        )
+
+        #right leg : 12, 14, 16 (hip, knee and ankle)
+        right_leg = getAngle(
+            keypoints_with_scores[12],
+            keypoints_with_scores[14],
+            keypoints_with_scores[16]
+        )   
+
+        return left_arm_and_torso, right_arm_and_torso, left_arm, right_arm, left_leg, right_leg
+
+# (9) Prasarita_Padottanasana:
+# ------------
+    elif pose_idx == 9:
 
         #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
         left_arm_and_torso = getAngle(
