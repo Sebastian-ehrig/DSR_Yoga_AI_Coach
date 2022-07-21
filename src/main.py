@@ -90,7 +90,7 @@ cap.set(4,frame_Height) # Height of the frames in the video stream
 
 poses_df = []
 ref_images = []
-for pose_idx in range(5):
+for pose_idx in range(10):
 
     ref_image_path = './reference_poses/Yoga_Seq_'+str(pose_idx) +'.jpg'
     pose_df = pd.read_csv('./reference_poses/Yoga_Seq_'+str(pose_idx) +'.csv', sep='\t')
