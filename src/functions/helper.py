@@ -6,6 +6,8 @@ import os
 import time
 import pyshine as ps
 import threading
+import matplotlib.pyplot as plt
+
 
 # import math
 
@@ -107,7 +109,7 @@ def draw_reference_contour(contours, frame, keypoints_with_scores):
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
         # draw the contours on the image
-        frame = cv2.drawContours(frame, contours, -1, (0,255,0), 3)
+        frame = cv2.drawContours(frame, contours, -1, (100,215,0), 3)
 
     return frame
 
@@ -261,11 +263,11 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
     # Check if all keypoints are detected
     min_score = min(keypoints_with_scores[:,:,:,2].flatten())
     if min_score < keypoint_detection_threshold:
-        error_text = 'Not enough keypoints detected'
+        error_text = 'Not enough keypoints detected.'
         text_location = (left_margin, 2 * row_size)
         cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                     font_size, text_color, font_thickness)
-        # error_text = 'Make sure the person is fully visible.'
+        # error_text = 'Make sure the person is fully visible in the frame.'
         # text_location = (left_margin, 3 * row_size)
         # cv2.putText(frame, error_text, text_location, cv2.FONT_HERSHEY_PLAIN,
         #             font_size, text_color, font_thickness)
@@ -286,7 +288,7 @@ def draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_
             # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
             #             font_size, text_color, font_thickness)
 
-            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            ps.putBText(frame,result_text,text_offset_x=20,text_offset_y=20,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=(1,1,1))
 
     return frame
 
@@ -323,10 +325,10 @@ def draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             # cv2.putText(frame, result_text, text_location, cv2.FONT_HERSHEY_PLAIN,
             #             font_size, text_color, font_thickness)
 
-            
+                   
             probability2 = round(cos_sim_score_kpt, 2)
             result_text2 = 'Cosine_Sim_Score' + ' (' + str(probability2) + ')'
-            probability3 = round(mse, 1)
+            probability3 = mse #round(mse, 1)
             result_text3 = 'MSE' + ' (' + str(probability3) + ')'
 
             text_location2 = (left_margin, (1 + 2) * row_size)
@@ -355,7 +357,19 @@ def draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
                 ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades3)
             elif mse > 225:
                 ps.putBText(frame,result_text3,text_offset_x=20,text_offset_y=20 + 2 * row_size,vspace=10,hspace=10, font_scale=1.5,background_RGB=(228,225,222),text_RGB=MSE_shades4)
- 
+
+            # draw progression bar
+            # ---------------------
+            #Percentage of correctness
+            per = 100 - np.interp(mse, (0, 800), (0, 100))
+            bar = np.interp(100 - per, (0, 100), (50, 480))
+          
+            cv2.rectangle(frame, (1180, 50), (1200, 480), (100, 215, 125), 3)
+            cv2.rectangle(frame, (1180, nan_to_integer(bar)), (1200, 480), (100, 215, 75), cv2.FILLED)
+            cv2.putText(frame, f'{nan_to_integer(per)}%', (1100, 50), cv2.FONT_HERSHEY_PLAIN, 2,
+                        (0, 0, 255), 2)
+
+
     return frame
 
 def getAngle(a, b, c):

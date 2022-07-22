@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import cv2
 import warnings
+import tqdm
 import glob
 import time
 
@@ -127,12 +128,14 @@ while cap.isOpened():
     ret, frame = cap.read()
 
     frame = cv2.flip(frame, 1)
-    
+
     counter += 1 # frame counter
 
     # input frame has to be a float32 tensor of shape: 256x256x3 or 196x196x3.
     # RGB with values in [0, 255].
-    img = frame.copy()   
+    img = frame.copy()
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
     image_height, image_width, _ = frame.shape
 
     # # make keypoint predictions on image frame
@@ -177,7 +180,7 @@ while cap.isOpened():
 
     # compute mean-squared error
     mse = (np.square(pose_angles_reference_img - pose_angles_current_frame)).mean()
-
+    mse = nan_to_integer(mse)
     # draw class prediction results
     draw_class_prediction_results(keypoints_with_scores, prob_list_labels, prob_list_scores, frame)
 
@@ -242,7 +245,7 @@ while cap.isOpened():
                     correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
     # draw_FPS(frame, counter, fps, start_time) 
-       
+    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)   
     cv2.imshow('MoveNet frame', frame)
 
     if capture_frames == 1:
