@@ -108,13 +108,13 @@ for pose_idx in range(10):
 contour_image_path = './reference_poses/contour/tadasana' +'.jpg'
 contour_image = tf.io.read_file(contour_image_path)
 contour_image = tf.image.decode_jpeg(contour_image)
-contour_image = tf.image.resize(np.expand_dims(contour_image, axis=0), (frame_Height, frame_Width))
+contour_image = tf.image.resize_with_pad(np.expand_dims(contour_image, axis=0), frame_Height, frame_Width)
 contour_image = np.squeeze(contour_image.numpy(), axis=0)
 contour_image = contour_image.astype(np.uint8)
 # find image contours
 img_grey = cv2.cvtColor(contour_image,cv2.COLOR_BGR2GRAY)
 thresh = 150
-ret,thresh_img = cv2.threshold(img_grey, thresh, 255, cv2.THRESH_BINARY_INV)
+ret,thresh_img = cv2.threshold(img_grey, thresh, 255, cv2.THRESH_BINARY)
 contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 # ---------------------------------------------------------------------

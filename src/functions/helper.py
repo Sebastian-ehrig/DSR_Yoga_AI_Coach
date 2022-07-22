@@ -26,6 +26,13 @@ class ThreadWithResult(threading.Thread):
 def cosine_similarity(a, b):
   return dot(a, b)/(norm(a)*norm(b))
 
+def nan_to_integer(value):
+    if np.isnan(value):
+        value = np.nan_to_num(value)
+    else:
+        value = int(value)
+    return value
+
 # define function for making keypoint predictions
 def make_predictions(img, interpreter, image_size):
         enhance_contrast = 0
@@ -470,7 +477,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 6:
             # draw angles at a particular x-y position of the frame:            
-                right_arm_and_torso = int(right_arm_and_torso)
+                right_arm_and_torso = nan_to_integer(right_arm_and_torso)
                     # print confidence scores on frame
                     # Using cv2.putText()
                 cv2.putText(
@@ -485,7 +492,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 7:
             # draw angles at a particular x-y position of the frame:            
-                left_arm = int(left_arm)
+                left_arm = nan_to_integer(left_arm)
                     # print confidence scores on frame
                     # Using cv2.putText()
                 cv2.putText(
@@ -501,7 +508,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 8:
             # draw angles at a particular x-y position of the frame:            
-                    right_arm = int(right_arm)
+                    right_arm = nan_to_integer(right_arm)
                     # print confidence scores on frame
                     # Using cv2.putText()
                     cv2.putText(
@@ -516,7 +523,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 11:
             # draw angles at a particular x-y position of the frame:            
-                left_hip = int(left_hip)
+                left_hip = nan_to_integer(left_hip)
                     # print confidence scores on frame
                     # Using cv2.putText()
                 cv2.putText(
@@ -532,7 +539,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 12:
             # draw angles at a particular x-y position of the frame:            
-                    rigth_hip = int(rigth_hip)
+                    rigth_hip = nan_to_integer(rigth_hip)
                     # print confidence scores on frame
                     # Using cv2.putText()
                     cv2.putText(
@@ -547,7 +554,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 13:
             # draw angles at a particular x-y position of the frame:            
-                left_leg = int(left_leg)
+                left_leg = nan_to_integer(left_leg)
                     # print confidence scores on frame
                     # Using cv2.putText()
                 cv2.putText(
@@ -563,7 +570,7 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
 
             if i == 14:
             # draw angles at a particular x-y position of the frame:            
-                    right_leg = int(right_leg)
+                    right_leg = nan_to_integer(right_leg)
                     # print confidence scores on frame
                     # Using cv2.putText()
                     cv2.putText(
