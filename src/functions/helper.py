@@ -93,8 +93,18 @@ def make_predictions_compact(input_image, interpreter):
 
     return keypoints_with_scores
 
-# define function for drawing the keypoints
 
+def draw_reference_contour(contours, frame, keypoints_with_scores):
+    keypoint_detection_threshold = 0.1
+    # Check if all keypoints are detected
+    min_score = min(keypoints_with_scores[:,:,:,2].flatten())
+    if min_score < keypoint_detection_threshold:
+        # draw the contours on the image
+        frame = cv2.drawContours(frame, contours, -1, (0,255,0), 3)
+
+    return frame
+
+# define function for drawing the keypoints
 def draw_keypoints(frame, keypoints_with_scores, confidence_threshold):
     y, x, c = frame.shape # (y,x) = coordinates; c = channels
     # convert the normalized coordinates to pixel coordinates:

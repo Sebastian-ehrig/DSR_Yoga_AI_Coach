@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import cv2 #cv2
+import cv2
 import warnings
 import glob
 import time
@@ -21,9 +21,9 @@ print("Available cameras:", cams)
 # ignore warnings
 warnings.filterwarnings('ignore')
 
-#----------------------------------------
-# Load Model and define model parameters:
-#----------------------------------------
+#-------------------
+# Define parameters:
+#-------------------
 
 single_pose_thunder3=1 # Movenet singlepose thunder3 to be used, 
                        # else Movenet singlepose lightning3
@@ -37,7 +37,7 @@ play_yoga_sequence = 0 # 1 if yoga sequence is to be played
 
 # enhance_contrast = 0 # if contrast enhancement is to be done
 
-high_res = 1 # 1 if HD resolution is to be used
+high_res = 0 # 1 if HD resolution is to be used
 
 seq_step = 0 # sequence step 
 
@@ -45,6 +45,9 @@ seq_step = 0 # sequence step
 counter, fps = 0, 0
 startTime = time.time()
 
+# ----------------------
+# Load TensorFlow model:
+# ----------------------
 
     # Model: Movenet singlepose thunder3
 if single_pose_thunder3==1:
@@ -61,6 +64,7 @@ else:
 #---------------------------------------------
 # initialize video frame capture using OpenCV2
 #---------------------------------------------
+
 # VideoCapture(0) -> webcam
 # VideoCapture(2) -> external cam/webcam
 
@@ -82,9 +86,9 @@ else:
 cap.set(3,frame_Width) # Width of the frames in the video stream
 cap.set(4,frame_Height) # Height of the frames in the video stream
 
-# -------------------------------------------------------
-# Load reference pose for computing the cosine-similarity
-# -------------------------------------------------------
+# ---------------------
+# Load reference poses
+# ---------------------
 
 poses_df = []
 ref_images = []
@@ -97,9 +101,25 @@ for pose_idx in range(10):
     # pose_df = pose_df.ravel()   
     poses_df.append(pose_df)
 
-# -------------------
-# Begin frame capture 
-# -------------------
+# ---------------------------------------
+# Load reference image and find contours:
+# ---------------------------------------
+
+contour_image_path = './reference_poses/contour/tadasana' +'.jpg'
+contour_image = tf.io.read_file(contour_image_path)
+contour_image = tf.image.decode_jpeg(contour_image)
+contour_image = tf.image.resize(np.expand_dims(contour_image, axis=0), (frame_Height, frame_Width))
+contour_image = np.squeeze(contour_image.numpy(), axis=0)
+contour_image = contour_image.astype(np.uint8)
+# find image contours
+img_grey = cv2.cvtColor(contour_image,cv2.COLOR_BGR2GRAY)
+thresh = 150
+ret,thresh_img = cv2.threshold(img_grey, thresh, 255, cv2.THRESH_BINARY_INV)
+contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+# ---------------------------------------------------------------------
+# *** Begin frame capture ***
+# ---------------------------------------------------------------------
 
 while cap.isOpened():
 
@@ -122,6 +142,10 @@ while cap.isOpened():
     crop_region = init_crop_region(image_height, image_width)
     keypoints_with_scores = improve_predictions(make_predictions_compact, img, crop_region, image_size, interpreter)
 
+    # draw contour
+    # ------------------
+    draw_reference_contour(contours, frame, keypoints_with_scores)
+
     # Render image including the detected keypoints:
     # ----------------------------------------------
     confidence_threshold = confidence_score # threshold for drawing the keypoints
@@ -133,7 +157,7 @@ while cap.isOpened():
     # draw_keypoints_initial(frame, initial_keypoints_with_scores, confidence_threshold)
     draw_keypoints(frame, keypoints_with_scores, confidence_threshold)
 
-    # draw_angles(frame, keypoints_with_scores, confidence_threshold)
+    draw_angles(frame, keypoints_with_scores, confidence_threshold)
 
     # run the classifier on the frame
     prob_list_labels, prob_list_scores, output, labels = classifier(keypoints_with_scores)
