@@ -8,6 +8,7 @@ import pyshine as ps
 import threading
 import matplotlib.pyplot as plt
 
+from functions.corrections import *
 
 # import math
 
@@ -406,6 +407,69 @@ def getAngle(a, b, c):
     angle = np.arccos(cosine_angle)
     angle = np.degrees(angle)
     return angle
+
+def make_pose_correction_suggestions(
+                play_yoga_sequence, seq_step, 
+                counter, 
+                mse, 
+                keypoints_reference_pose,
+                keypoints_with_scores,
+                pose_idx,
+                time_in
+                ):
+    """
+    This function makes suggestions for pose correction.
+    """
+    if play_yoga_sequence == 1: # corrections for yoga sequence
+
+        if seq_step == 0 or seq_step >=5:
+            if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                if mse <= 200:
+                    correct = True
+                if mse > 201:              
+                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 1:
+            if time.time() - time_in > 90:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 2:
+            if time.time() - time_in > 50:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 3:
+            if time.time() - time_in > 45:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+        if seq_step == 4:
+            if time.time() - time_in > 95:
+                if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                    if mse <= 200:
+                        correct = True
+                    if mse > 201:              
+                        correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
+    else: # corrections for all poses
+        if counter % 50 == 0: # suggest corrections every 50 frames (~ 2 seconds)
+                if mse <= 150:
+                    correct = True
+                    CorrectPose = "./src/functions/sequence_commands/Correct.ogg"
+                    playSound(CorrectPose)
+                if mse > 201:              
+                    correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
+
 
 def draw_angles(frame, keypoints_with_scores, confidence_threshold):
     y, x, c = frame.shape # (y,x) = coordinates; c = channels
