@@ -4,7 +4,7 @@ model_path_thunder_3="./models/lite-model_movenet_singlepose_thunder_3.tflite"
 model_path_lightning_3="./models/lite-model_movenet_singlepose_lightning_3.tflite"
 model_path_classifier = "./pose_classification_results/pose_classifier/pose_classifier.tflite"
 
-# Classifier label locations
+# Classifier label location
 label_path = './pose_classification/pose_classifier/pose_labels.txt'
 
 # Dictionary to map joints of body part
