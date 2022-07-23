@@ -128,8 +128,28 @@ def draw_keypoints(frame, keypoints_with_scores, confidence_threshold):
             # size is "4", color RGB (0,255,0), -1 (fills the circle)
             cv2.circle(frame, (int(kx), int(ky)), 6, (0,255,0),-1)
             cv2.circle(frame, (int(kx), int(ky)), 6, (224,255,255), 2)
-            
+
     return frame
+
+def draw_rectangle_around_keypoints(frame, keypoints_with_scores):
+    keypoint_detection_threshold = 0.1
+        # Check if all keypoints are detected
+    min_score = min(keypoints_with_scores[:,:,:,2].flatten())
+    if min_score > keypoint_detection_threshold:
+
+        y, x, c = frame.shape # (y,x) = coordinates; c = channels
+        # convert the normalized coordinates to pixel coordinates:
+        # so basically multiply keypoints (e.g. left_eye) with the 
+        # input frame dimension (e.g. 480, 640, 1)
+        rescaled = np.squeeze(np.multiply(keypoints_with_scores, [y, x, 1]))
+
+        # draw rectangle around the keypoints
+        max_y_coord = np.max(rescaled[:,0])
+        max_x_coord = np.max(rescaled[:,1])
+        min_y_coord = np.min(rescaled[:,0])
+        min_x_coord = np.min(rescaled[:,1])
+
+        cv2.rectangle(frame, (int(min_x_coord), int(min_y_coord)), (int(max_x_coord), int(max_y_coord)), (0,255,0), 2)
 
 def draw_keypoints_initial(frame, keypoints_with_scores, confidence_threshold):
     y, x, c = frame.shape # (y,x) = coordinates; c = channels
@@ -364,17 +384,15 @@ def draw_prediction_scores(keypoints_with_scores, cos_sim_score_kpt, mse, frame)
             per = 100 - np.interp(mse, (0, 800), (0, 100))
             bar = np.interp(100 - per, (0, 100), (50, 480))
           
-            cv2.rectangle(frame, (1180, 50), (1200, 480), (100, 215, 125), 3)
             cv2.rectangle(frame, (1180, nan_to_integer(bar)), (1200, 480), (100, 215, 75), cv2.FILLED)
-            cv2.putText(frame, f'{nan_to_integer(per)}%', (1100, 50), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (0, 0, 255), 2)
+            cv2.rectangle(frame, (1180, 50), (1200, 480), (100, 215, 125), 3)
+            cv2.putText(frame, f'{nan_to_integer(per)}%', (1050, 50), cv2.FONT_HERSHEY_PLAIN, 3,
+                        (0, 0, 255), 4)
 
 
     return frame
 
 def getAngle(a, b, c):
-    # ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))
-    # return ang + 360 if ang < 0 else ang
 
     a = a[:2]
     b = b[:2]
@@ -395,7 +413,6 @@ def draw_angles(frame, keypoints_with_scores, confidence_threshold):
     # so basically multiply keypoints (e.g. left_eye) with the 
     # input frame dimension (e.g. 480, 640, 1)
     rescaled = np.squeeze(np.multiply(keypoints_with_scores, [y, x, 1]))
-
 
     #left_arm_and_torso: 6,5,7 (right shoulder, left shoulder and left elbow)
     left_arm_and_torso = getAngle(
