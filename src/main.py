@@ -42,6 +42,8 @@ high_res = 0 # 1 if HD resolution is to be used
 
 seq_step = 0 # sequence step 
 
+full_screen_mode = 1 # 1 if full screen mode is to be used
+
 # Variables to calculate FPS
 counter, fps = 0, 0
 startTime = time.time()
@@ -99,7 +101,6 @@ for pose_idx in range(10):
     pose_df = pd.read_csv('./reference_poses/Yoga_Seq_'+str(pose_idx) +'.csv', sep='\t')
     pose_df = pose_df.to_numpy()
     pose_df = np.squeeze(pose_df)
-    # pose_df = pose_df.ravel()   
     poses_df.append(pose_df)
 
 # ---------------------------------------
@@ -112,7 +113,7 @@ contour_image = tf.image.decode_jpeg(contour_image)
 contour_image = tf.image.resize_with_pad(np.expand_dims(contour_image, axis=0), frame_Height, frame_Width)
 contour_image = np.squeeze(contour_image.numpy(), axis=0)
 contour_image = contour_image.astype(np.uint8)
-# find image contours
+# find image contour
 img_grey = cv2.cvtColor(contour_image,cv2.COLOR_BGR2GRAY)
 thresh = 150
 ret,thresh_img = cv2.threshold(img_grey, thresh, 255, cv2.THRESH_BINARY)
@@ -121,6 +122,13 @@ contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPR
 # ---------------------------------------------------------------------
 # *** Begin frame capture ***
 # ---------------------------------------------------------------------
+
+# Full screen mode
+if full_screen_mode == 1:
+    WINDOW_NAME = 'Full_Screen_Mode'
+    cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 
 while cap.isOpened():
 
@@ -160,7 +168,9 @@ while cap.isOpened():
     # draw_keypoints_initial(frame, initial_keypoints_with_scores, confidence_threshold)
     draw_keypoints(frame, keypoints_with_scores, confidence_threshold)
 
-    draw_angles(frame, keypoints_with_scores, confidence_threshold)
+    draw_rectangle_around_keypoints(frame, keypoints_with_scores)
+
+    # draw_angles(frame, keypoints_with_scores, confidence_threshold)
 
     # run the classifier on the frame
     prob_list_labels, prob_list_scores, output, labels = classifier(keypoints_with_scores)
@@ -244,9 +254,11 @@ while cap.isOpened():
                 if mse > 201:              
                     correct_angles(keypoints_reference_pose, keypoints_with_scores, pose_idx)
         
-    # draw_FPS(frame, counter, fps, start_time) 
-    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)   
-    cv2.imshow('MoveNet frame', frame)
+    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    if full_screen_mode == 1:
+        cv2.imshow(WINDOW_NAME, frame)
+    else:
+        cv2.imshow('MoveNet frame', frame)
 
     if capture_frames == 1:
         cv2.imwrite('./frames/Frame'+str(counter)+'.jpg', frame)

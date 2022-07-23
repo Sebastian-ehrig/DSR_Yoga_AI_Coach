@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import cv2 #cv2
+import cv2
 import warnings
 import glob
 import time
@@ -63,7 +63,7 @@ counter, fps = 0, 0
 startTime = time.time()
 CommandExecuted = False
 
-# Load reference pose for computing the cosine-similarity
+# Load reference pose for computing the mse and cosine-similarity
 # -------------------------------------------------------
 poses_df = []
 ref_images = []
@@ -73,7 +73,6 @@ for pose_idx in range(10):
     pose_df = pd.read_csv('./reference_poses/Yoga_Seq_'+str(pose_idx) +'.csv', sep='\t')
     pose_df = pose_df.to_numpy()
     pose_df = np.squeeze(pose_df)
-    # pose_df = pose_df.ravel()   
     poses_df.append(pose_df)
 
     
